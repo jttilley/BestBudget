@@ -28,26 +28,21 @@ export default function AddBudgetItem({ category }) {
   const [itemState, setItemState] = React.useState({description: '', amount: '', type: 'Budget' });
 
 
-  const handleChange = (e,value) => {
-  console.log("🚀 ~ file: AddBudgetItem.js ~ line 32 ~ handleChange ~ value", value)
-    console.log(e.target);
-    
-    const {name} = e.target;
-    console.log("🚀 ~ file: AddBudgetItem.js ~ line 36 ~ handleChange ~ name", name)
-    if (value === undefined) value = e.target.value;
-    console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ value", value)
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    // if (value === undefined) value = e.target.value;
     setItemState({
       ...itemState,
       [name]: value,
     });
-    console.log(itemState);
+    // console.log(itemState);
   }
 
   const AddItem = () => {
     const {description, amount, type} = itemState;
     
     alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
-    
+
   }
 
   return (
