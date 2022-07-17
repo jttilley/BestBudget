@@ -8,8 +8,9 @@ import MuiAccordionSummary, {
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import AddBudgetItem from './AddBudgetItem';
+import { personalCategories, businessCategories } from '../utils/allCategories';
 
-const Accordion = styled((props: AccordionProps) => (
+const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
@@ -19,9 +20,12 @@ const Accordion = styled((props: AccordionProps) => (
   '&:before': {
     display: 'none',
   },
+  palette: {
+    mode: 'dark',
+  },
 }));
 
-const AccordionSummary = styled((props: AccordionSummaryProps) => (
+const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
     expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
     {...props}
@@ -65,7 +69,7 @@ export default function Categories() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            <AddBudgetItem/>
+            <AddBudgetItem category="income"/>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
             malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
             sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
@@ -79,6 +83,7 @@ export default function Categories() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
+          <AddBudgetItem category="utilities"/>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
             malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
             sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
@@ -92,6 +97,7 @@ export default function Categories() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
+          <AddBudgetItem  category="debt"/>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
             malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
             sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,

@@ -13,34 +13,83 @@ import { Button } from '@mui/material';
 //   paddingLeft: theme.spacing(5),
 // }));
 
+  let itemId;
+  let amountId;
+  let typeId;
+
 export default function AddBudgetItem({ category }) {
-  const itemId = `${category}_itemDesc`;
-  const amountId = `${category}_amount`;
+  itemId = `${category}_itemDesc`;
+  // console.log("🚀 ~ file: AddBudgetItem.js ~ line 22 ~ AddBudgetItem ~ itemId", itemId)
+  amountId = `${category}_amount`;
+  // console.log("🚀 ~ file: AddBudgetItem.js ~ line 24 ~ AddBudgetItem ~ amountId", amountId)
+  typeId = `${category}_type`;
+  // console.log("🚀 ~ file: AddBudgetItem.js ~ line 26 ~ AddBudgetItem ~ typeId", typeId)
+  
+  const [itemState, setItemState] = React.useState({description: '', amount: '', type: 'Budget' });
+
+
+  const handleChange = (e,value) => {
+  console.log("🚀 ~ file: AddBudgetItem.js ~ line 32 ~ handleChange ~ value", value)
+    console.log(e.target);
+    
+    const {name} = e.target;
+    console.log("🚀 ~ file: AddBudgetItem.js ~ line 36 ~ handleChange ~ name", name)
+    if (value === undefined) value = e.target.value;
+    console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ value", value)
+    setItemState({
+      ...itemState,
+      [name]: value,
+    });
+    console.log(itemState);
+  }
+
+  const AddItem = () => {
+    const {description, amount, type} = itemState;
+    
+    alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
+    
+  }
 
   return (
     <div>
-      <Grid container sx={{ padding: 2 }}>
-        <Grid itemStyling xs={5}>
+      <Grid container sx={{ padding: 0 }}>
+        <Grid itemStyling xs={3}>
           <Autocomplete
-            // disablePortal
+            disablePortal
             freeSolo
             id={itemId}
             options={personalCategories[2].subCategories.map((option) => option)}
-            
-            renderInput={(params) => <TextField {...params} variant="outlined" label="Budget Item" />}
+            renderInput={(params) => <TextField {...params} 
+                                      variant="outlined" 
+                                      label="Item Description" 
+                                      name="description" 
+                                      onChange={handleChange}
+                                      onSelect={handleChange}
+                                    />}
           />
         </Grid>
-        <Grid xs={4}>
-          <TextField id={amountId} label="Amount" variant="outlined" />
+        <Grid xs={3}>
+          <TextField id={amountId} label="$ Amount" variant="outlined" name="amount" onChange={handleChange}/>
         </Grid>
         <Grid xs={3}>
-          <Button variant="contained" color="success" sx={{ display:"flex", alignSelf: "flex-end", width: 100 }} onClick={AddItem}>Add</Button>
+          <Autocomplete
+          id={typeId}
+          options={["Budget","Expense"]}
+          defaultValue={"Budget"}
+          renderInput={(params) => <TextField {...params} 
+                                    variant="filled" 
+                                    label="Item Type" 
+                                    name="type" 
+                                    onChange={handleChange}
+                                    onSelect={handleChange}
+                                  />}
+          />
+        </Grid>
+        <Grid xs={3}>
+          <Button variant="contained" color="success" sx={{ display:"flex",  width: 100, height:55 }} onClick={AddItem}>Add</Button>
         </Grid>
       </Grid>
     </div>
   );
 }
 
-const AddItem = () => {
-  alert("I'm adding the item");
-}
