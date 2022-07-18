@@ -1,5 +1,6 @@
 const personalCategories = [
   {
+    id: 1,
     name: "Income",
     startPercent: 100,
     subCategories: [
@@ -9,6 +10,7 @@ const personalCategories = [
       "One Time"
     ]
   },{
+    id: 2,
     name: "Mortgage/Rent",
     minPercent: 25,
     maxPercent: 35,
@@ -22,6 +24,7 @@ const personalCategories = [
       "Association Dues"
     ]
   },{
+    id: 3,
     name: "Utilities",
     minPercent: 5,
     maxPercent: 10,
@@ -43,6 +46,7 @@ const personalCategories = [
       "Discovery+",
     ]
   },{
+    id: 4,
     name: "Insurance",
     minPercent: 10,
     maxPercent: 25,
@@ -56,6 +60,7 @@ const personalCategories = [
       "Long-Term Care"
     ]
   },{
+    id: 5,
     name: "Giving",
     minPercent: 10,
     maxPercent: 15,
@@ -65,6 +70,7 @@ const personalCategories = [
       "Charity"
     ]
   },{
+    id: 6,
     name: "Transportation",
     minPercent: 10,
     maxPercent: 15,
@@ -76,6 +82,7 @@ const personalCategories = [
       "Bus/Train/Tram Passes"
     ]
   },{
+    id: 7,
     name: "Debt",
     minPercent: 5,
     maxPercent: 10,
@@ -88,6 +95,7 @@ const personalCategories = [
       "Personal Loan"
     ]
   },{
+    id: 8,
     name: "Food",
     minPercent: 5,
     maxPercent: 15,
@@ -105,6 +113,7 @@ const personalCategories = [
       "Publics",
     ]
   },{
+    id: 9,
     name: "Medical/Health",
     minPercent: 5,
     maxPercent: 10,
@@ -117,6 +126,7 @@ const personalCategories = [
       "Optometrist"
     ]
   },{
+    id: 10,
     name: "Personal",
     minPercent: 5,
     maxPercent: 10,
@@ -138,6 +148,7 @@ const personalCategories = [
       "Miscellaneous"
     ]
   },{
+    id: 11,
     name: "Recreation",
     minPercent: 5,
     maxPercent: 10,
@@ -149,6 +160,7 @@ const personalCategories = [
       "Sport Dues"
     ]
   },{
+    id: 12,
     name: "Savings",
     minPercent: 5,
     maxPercent: 10,
@@ -161,6 +173,7 @@ const personalCategories = [
       "Retirement"
     ]
   },{
+    id: 13,
     name: "Clothing",
     minPercent: 2,
     maxPercent: 7,
@@ -175,22 +188,26 @@ const personalCategories = [
 
 const businessCategories = [
   {
+    id: 1,
     name: "Income",
     startPercent: 100,
     subCategories: ["Daily", "Weekly", "Bi-Weekly", "Monthly", "One Time"]
   },{
+    id: 2,
     name: "Employees",
     minPercent: 5,
     maxPercent: 50,
     startPercent: 25,
     subCategories: ["Reception","Sales","Labor","Software","Engineering","Managment","Tech","Assistance","Remote","Human Resources"]
   },{
+    id: 3,
     name: "Property",
     minPercent: 5,
     maxPercent: 25,
     startPercent: 10,
     subCategories: ["Mortgage","Rent","Insurance","Taxes","Equipment"]
   },{
+    id: 4,
     name: "Utilities",
     minPercent: 5,
     maxPercent: 10,
@@ -205,6 +222,7 @@ const businessCategories = [
       "TV Package"
     ]
   },{
+    id: 5,
     name: "Giving",
     minPercent: 10,
     maxPercent: 15,
@@ -213,6 +231,7 @@ const businessCategories = [
       "Charity"
     ]
   },{
+    id: 6,
     name: "Transportation",
     minPercent: 10,
     maxPercent: 15,
@@ -224,6 +243,7 @@ const businessCategories = [
       "Bus/Train/Tram Passes"
     ]
   },{
+    id: 7,
     name: "Debt",
     minPercent: 5,
     maxPercent: 10,
@@ -235,6 +255,7 @@ const businessCategories = [
       "Equipment"
     ]
   },{
+    id: 8,
     name: "Food",
     minPercent: 5,
     maxPercent: 15,
@@ -244,24 +265,28 @@ const businessCategories = [
       "Resturants/Takeout"
     ]
   },{
+    id: 9,
     name: "Advertising",
     minPercent: 5,
     maxPercent: 25,
     startPercent: 10,
     subCategories: ["Publications","Signs"]
   },{
+    id: 10,
     name: "Petty cash",
     minPercent: 2,
     maxPercent: 10,
     startPercent: 5,
     subCategories: ["Event","Wine & Dine","Conference","Client"]
   },{
+    id: 11,
     name: "Insurance",
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
     subCategories: ["Vehical","Workers Comp","Renters","Mortgage","Health","Dental","Vision"]
   },{
+    id: 12,
     name: "Services",
     minPercent: 5,
     maxPercent: 10,
@@ -269,6 +294,7 @@ const businessCategories = [
     subCategories: [ "Plumbing","Heating","Protection","Monitoring","Phone","Repairs"]
   },
   {
+    id: 13,
     name: "Savings",
     minPercent: 5,
     maxPercent: 10,
@@ -283,6 +309,7 @@ const businessCategories = [
       "Office Space"
     ]
   },{
+    id: 14,
     name: "Miscellaneous",
     minPercent: 5,
     maxPercent: 30,
