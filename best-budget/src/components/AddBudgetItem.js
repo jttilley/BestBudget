@@ -22,6 +22,11 @@ export default function AddBudgetItem({ category, subCategories }) {
   
   const [itemState, setItemState] = React.useState({description: '', amount: '', type: 'Budget' });
 
+  let descLabel = 'Item Description'
+  
+  //change description label for income
+  if (category === 'Income') descLabel = 'Income Type'
+
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -34,7 +39,7 @@ export default function AddBudgetItem({ category, subCategories }) {
     // console.log(itemState);
   }
 
-  const handleAddItem = (e, category) => {
+  const handleAddItem = (e) => {
     const {description, amount, type} = itemState;
     
     alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
@@ -42,7 +47,7 @@ export default function AddBudgetItem({ category, subCategories }) {
     addItem(description,amount,type,category)
 
   }
-
+  
   return (
     <div>
       <Grid container sx={{ padding: 0 }}>
@@ -54,7 +59,7 @@ export default function AddBudgetItem({ category, subCategories }) {
             options={subCategories.map((option) => option)}
             renderInput={(params) => <TextField {...params} 
                                       variant="outlined" 
-                                      label="Item Description" 
+                                      label={descLabel}
                                       name="description" 
                                       spellCheck="true"
                                       onChange={handleChange}
@@ -72,6 +77,8 @@ export default function AddBudgetItem({ category, subCategories }) {
             onSelect={handleChange}
           />
         </Grid>
+        {/* don't need this for income */}
+        { category != 'Income' ? 
         <Grid item xs={4}>
           <Autocomplete
           id={typeId}
@@ -88,6 +95,7 @@ export default function AddBudgetItem({ category, subCategories }) {
                                   />}
           />
         </Grid>
+        :<></>}
         <Grid item xs={1}>
           <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
         </Grid>

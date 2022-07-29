@@ -3,6 +3,7 @@ const personalCategories = [
     id: 1,
     name: "Income",
     startPercent: 100,
+    total: 0,
     subCategories: [
       "Weekly", 
       "Bi-Weekly", 
@@ -15,6 +16,7 @@ const personalCategories = [
     minPercent: 25,
     maxPercent: 35,
     startPercent: 25,
+    total: 0,
     subCategories: [
       "1st Mortgage",
       "2nd Mortgage",
@@ -29,6 +31,7 @@ const personalCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Electricity",
       "Gas",
@@ -51,6 +54,7 @@ const personalCategories = [
     minPercent: 10,
     maxPercent: 25,
     startPercent: 10,
+    total: 0,
     subCategories: [
       "Life",
       "Health",
@@ -65,6 +69,7 @@ const personalCategories = [
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
+    total: 0,
     subCategories: [
       "Tithes",
       "Charity"
@@ -75,6 +80,7 @@ const personalCategories = [
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
+    total: 0,
     subCategories: [
       "Gas & Oil",
       "Repairs & Tires",
@@ -87,6 +93,7 @@ const personalCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Credit Card",
       "Car Payment",
@@ -100,6 +107,7 @@ const personalCategories = [
     minPercent: 5,
     maxPercent: 15,
     startPercent: 10,
+    total: 0,
     subCategories: [
       "Groceries",
       "Resturants/Takeout",
@@ -118,6 +126,7 @@ const personalCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Vitamins",
       "Medications",
@@ -131,6 +140,7 @@ const personalCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Pocket Money",
       "Toiletries",
@@ -153,6 +163,7 @@ const personalCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Gym Membership",
       "Entertainment",
@@ -165,6 +176,7 @@ const personalCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Emergency Fund",
       "Christmas",
@@ -178,6 +190,7 @@ const personalCategories = [
     minPercent: 2,
     maxPercent: 7,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Adults", 
       "Children", 
@@ -191,6 +204,7 @@ const businessCategories = [
     id: 1,
     name: "Income",
     startPercent: 100,
+    total: 0,
     subCategories: ["Daily", "Weekly", "Bi-Weekly", "Monthly", "One Time"]
   },{
     id: 2,
@@ -198,6 +212,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 50,
     startPercent: 25,
+    total: 0,
     subCategories: ["Reception","Sales","Labor","Software","Engineering","Managment","Tech","Assistance","Remote","Human Resources"]
   },{
     id: 3,
@@ -205,6 +220,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 25,
     startPercent: 10,
+    total: 0,
     subCategories: ["Mortgage","Rent","Insurance","Taxes","Equipment"]
   },{
     id: 4,
@@ -212,6 +228,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Electricity",
       "Gas",
@@ -227,6 +244,7 @@ const businessCategories = [
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
+    total: 0,
     subCategories: [
       "Charity"
     ]
@@ -236,6 +254,7 @@ const businessCategories = [
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
+    total: 0,
     subCategories: [
       "Gas & Oil",
       "Repairs & Tires",
@@ -248,6 +267,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Credit Card",
       "Vehical Payment",
@@ -260,6 +280,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 15,
     startPercent: 10,
+    total: 0,
     subCategories: [
       "Groceries",
       "Resturants/Takeout"
@@ -270,6 +291,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 25,
     startPercent: 10,
+    total: 0,
     subCategories: ["Publications","Signs"]
   },{
     id: 10,
@@ -277,6 +299,7 @@ const businessCategories = [
     minPercent: 2,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: ["Event","Wine & Dine","Conference","Client"]
   },{
     id: 11,
@@ -284,6 +307,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: ["Vehical","Workers Comp","Renters","Mortgage","Health","Dental","Vision"]
   },{
     id: 12,
@@ -291,6 +315,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [ "Plumbing","Heating","Protection","Monitoring","Phone","Repairs"]
   },
   {
@@ -299,6 +324,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
+    total: 0,
     subCategories: [
       "Emergency Fund",
       "Christmas",
@@ -314,6 +340,7 @@ const businessCategories = [
     minPercent: 5,
     maxPercent: 30,
     startPercent: 15,
+    total: 0,
     subCategories: []
   }
 ];

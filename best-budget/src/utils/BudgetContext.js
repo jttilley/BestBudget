@@ -12,6 +12,8 @@ const BudgetContext = React.createContext({
   addItem: () => {},
   handleItemChanges: () => {},
   handleAmountChanges: () => {},
+  incomeTotal: 0,
+  
 });
 
 export default BudgetContext;

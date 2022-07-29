@@ -11,8 +11,11 @@ import AddBudgetItem from './AddBudgetItem';
 import { personalCategories, businessCategories } from '../utils/allCategories';
 import BudgetContext from '../utils/BudgetContext'; 
 
+// initialize budgetItems
 let budgetItems = [];
 console.log("🚀 ~ file: Categories.js ~ line 15 ~ budgetItems", budgetItems)
+
+// if localStorage has data saved use that
 let local = localStorage.getItem("budgetItems");
 if (local) budgetItems = JSON.parse(local);
 
@@ -74,17 +77,17 @@ export default function Categories() {
 
   const addItem = (description,amount,type,category) => {
     // create user object from submission
-  var newItem = {
-    name: description,
-    amount: amount,
-    isExpense: type === "Budget" ? false : true,
-    categroy: category,
-  };
+    var newItem = {
+      name: description,
+      amount: amount,
+      isExpense: type === "Budget" ? false : true,
+      categroy: category,
+    };
 
-  budgetItems.push(newItem)
-  
-  // set new submission to local storage 
-  localStorage.setItem("budgetItems", JSON.stringify(budgetItems));
+    budgetItems.push(newItem)
+    
+    // set new submission to local storage 
+    localStorage.setItem("budgetItems", JSON.stringify(budgetItems));
   };
 
   const handleItemChanges = (e) => {
