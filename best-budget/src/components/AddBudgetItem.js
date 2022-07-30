@@ -23,11 +23,13 @@ export default function AddBudgetItem({ category, subCategories }) {
   const [itemState, setItemState] = React.useState({description: '', amount: '', type: 'Budget' });
 
   let descLabel = 'Item Description'
-  
+  let amountLabel = 'Pay $'
+
   //change description label for income
-  if (category === 'Income') descLabel = 'Income Type'
-
-
+  if (category === 'Income') {
+    descLabel = 'Income Type'
+    amountLabel = 'Paid $'
+  }
   const handleChange = (e) => {
     const {name, value} = e.target;
     // console.log("e.target",e.target)
@@ -61,6 +63,7 @@ export default function AddBudgetItem({ category, subCategories }) {
                                       variant="outlined" 
                                       label={descLabel}
                                       name="description" 
+                                      size='small'
                                       spellCheck="true"
                                       onChange={handleChange}
                                       onSelect={handleChange}
@@ -69,10 +72,12 @@ export default function AddBudgetItem({ category, subCategories }) {
         </Grid>
         <Grid item xs={3}>
           <TextField id={amountId} 
-            label="$ Amount" 
+            label={amountLabel}
             variant="outlined" 
             name="amount" 
             type="number"
+            size='small'
+            freeSolo
             onChange={handleChange}
             onSelect={handleChange}
           />
@@ -85,20 +90,41 @@ export default function AddBudgetItem({ category, subCategories }) {
           disableClearable
           options={["Budget","Expense"]}
           defaultValue={"Budget"}
+          size='small'
           renderInput={(params) => <TextField {...params} 
-                                    
-                                    variant="filled" 
+                                    variant="outlined" 
                                     label="Item Type" 
                                     name="type" 
+                                    size='small'
                                     onChange={handleChange}
                                     onSelect={handleChange}
                                   />}
           />
         </Grid>
         :<></>}
-        <Grid item xs={1}>
+        {category === 'Debt' ?
+          <>
+            <Grid item xs={5} sx={{paddingTop:1}}>
+              <TextField id='debtTotal' 
+                label="Debt Total $" 
+                variant="outlined" 
+                name="debt_total" 
+                type="number"
+                fullWidth
+                size='small'
+                onChange={handleChange}
+                onSelect={handleChange}
+              />
+              </Grid>
+              <Grid item xs={1} sx={{paddingTop: '9px', paddingLeft:1}} >
+              <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
+            </Grid>
+          </> 
+      : 
+        <Grid item xs={1} sx={{paddingTop:'2px'}} >
           <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
         </Grid>
+      }
       </Grid>
     </div>
   );
