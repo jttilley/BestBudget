@@ -22,6 +22,7 @@ if (local) budgetItems = JSON.parse(local);
 console.log('🚀 ~ file: Categories.js ~ line 15 ~ localStorage.getItem("budgetItems")', localStorage.getItem("budgetItems"));
 console.log("🚀 ~ file: Categories.js ~ line 15 ~ budgetItems", budgetItems)
 
+// copied from Material UI site
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -37,6 +38,7 @@ const Accordion = styled((props) => (
   },
 }));
 
+// copied from Material UI site
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
     expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
@@ -56,11 +58,13 @@ const AccordionSummary = styled((props) => (
   },
 }));
 
+// copied from Material UI site
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(2),
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
+// Layout budget categories
 export default function Categories() {
   // const [expanded, setExpanded] = React.useState<"" | false>('panel1');
 
@@ -75,15 +79,36 @@ export default function Categories() {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const addItem = (description,amount,type,category) => {
-    // create user object from submission
+  const addItem = (description,amount,type,category,debtTotal) => {
+    // default debt dates to today if not needed
+    let startDt = new Date(); //start date for debt calculations
+    let endDt = new Date();  // end date for debt calculations
+
+    let userId = -1; //default userId if not logged in
+
+    //Get user id if logged in *******
+
+
+    // if Debt calculate end date
+    if (category === "Debt") {
+      const moCnt = Math.ceil(debtTotal/amount)
+      endDt.setMonth(endDt.getMonth() + moCnt)
+    }
+
+    // create budgetItem object from submission
     var newItem = {
       name: description,
       amount: amount,
       isExpense: type === "Budget" ? false : true,
-      categroy: category,
+      category: category,
+      debtTotal: debtTotal,
+      debtStart: startDt,
+      debtEnd: endDt,
+      userId: userId,
     };
+    console.log("🚀 ~ file: BudgetView.js ~ line 109 ~ addItem ~ newItem", newItem)
 
+    // add Item to budgetItems
     budgetItems.push(newItem)
     
     // set new submission to local storage 
@@ -95,7 +120,7 @@ export default function Categories() {
   };
 
   const handleAmountChanges = (e) => {
-
+    
   }
 
   return (

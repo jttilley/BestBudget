@@ -99,7 +99,11 @@ const personalCategories = [
       "Car Payment",
       "Student Loan",
       "HELOC Loan",
-      "Personal Loan"
+      "Personal Loan",
+      "Visa",
+      "Master Card",
+      "Discovery",
+      "American Express"
     ]
   },{
     id: 8,

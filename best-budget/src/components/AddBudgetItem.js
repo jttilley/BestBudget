@@ -20,7 +20,7 @@ export default function AddBudgetItem({ category, subCategories }) {
   const amountId = `${category}_amount`;
   const typeId = `${category}_type`;
   
-  const [itemState, setItemState] = React.useState({description: '', amount: '', type: 'Budget' });
+  const [itemState, setItemState] = React.useState({ description: '', amount: '', type: 'Budget', debtTotal: '' });
 
   let descLabel = 'Item Description'
   let amountLabel = 'Pay $'
@@ -30,10 +30,15 @@ export default function AddBudgetItem({ category, subCategories }) {
     descLabel = 'Income Type'
     amountLabel = 'Paid $'
   }
+
+  //for local changes to inputs
   const handleChange = (e) => {
     const {name, value} = e.target;
+    console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ value", value)
+    console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ name", name)
     // console.log("e.target",e.target)
     // if (value === undefined) value = e.target.value;
+
     setItemState({
       ...itemState,
       [name]: value,
@@ -42,11 +47,14 @@ export default function AddBudgetItem({ category, subCategories }) {
   }
 
   const handleAddItem = (e) => {
-    const {description, amount, type} = itemState;
+    console.log("🚀 ~ file: AddBudgetItem.js ~ line 52 ~ handleAddItem ~ itemState", itemState)
     
-    alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
+    const {description, amount, type, debtTotal} = itemState;
+    if (category === 'Debt') {
+      alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item. Total Debt: " + debtTotal);
+    } else alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
 
-    addItem(description,amount,type,category)
+    addItem(description,amount,type,category,debtTotal)
 
   }
   
@@ -77,13 +85,12 @@ export default function AddBudgetItem({ category, subCategories }) {
             name="amount" 
             type="number"
             size='small'
-            freeSolo
             onChange={handleChange}
             onSelect={handleChange}
           />
         </Grid>
         {/* don't need this for income */}
-        { category != 'Income' ? 
+        { category !== 'Income' ? 
         <Grid item xs={4}>
           <Autocomplete
           id={typeId}
@@ -102,13 +109,14 @@ export default function AddBudgetItem({ category, subCategories }) {
           />
         </Grid>
         :<></>}
+        {/* modify layout for Debt */}
         {category === 'Debt' ?
           <>
             <Grid item xs={5} sx={{paddingTop:1}}>
-              <TextField id='debtTotal' 
+              <TextField id='Debt_total' 
                 label="Debt Total $" 
                 variant="outlined" 
-                name="debt_total" 
+                name="debtTotal" 
                 type="number"
                 fullWidth
                 size='small'
