@@ -10,6 +10,10 @@ import Typography from '@mui/material/Typography';
 import AddBudgetItem from './AddBudgetItem';
 import { personalCategories, businessCategories } from '../utils/allCategories';
 import BudgetContext from '../utils/BudgetContext'; 
+import CategoryHeader from './CategoryHeader';
+import Grid from '@mui/material/Grid'
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import SavingsIcon from '@mui/icons-material/Savings';
 
 // initialize budgetItems
 let budgetItems = [];
@@ -106,6 +110,7 @@ export default function Categories() {
       debtEnd: endDt,
       userId: userId,
     };
+
     console.log("🚀 ~ file: BudgetView.js ~ line 109 ~ addItem ~ newItem", newItem)
 
     // add Item to budgetItems
@@ -120,7 +125,7 @@ export default function Categories() {
   };
 
   const handleAmountChanges = (e) => {
-    
+
   }
 
   return (
@@ -132,18 +137,26 @@ export default function Categories() {
       }} >
       {personalCategories.map((category) => (
         <Accordion expanded={expanded === 'panel' + category.id} key={category.id} onChange={handleChange('panel' + category.id)}>
+          
           <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header">
-            <Typography>{category.name}</Typography>
+            
+            <CategoryHeader category={category} budgetTotal='1000' expenseTotal='500'/>
+
           </AccordionSummary>
+
           <AccordionDetails>
+            
             <AddBudgetItem category={category.name} subCategories={category.subCategories}/>
+            
             <Typography>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
               malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
               sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
               sit amet blandit leo lobortis eget.
             </Typography>
+
           </AccordionDetails>
+
         </Accordion>
       ))}
       </BudgetContext.Provider>

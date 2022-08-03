@@ -34,8 +34,8 @@ export default function AddBudgetItem({ category, subCategories }) {
   //for local changes to inputs
   const handleChange = (e) => {
     const {name, value} = e.target;
-    console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ value", value)
-    console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ name", name)
+    // console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ value", value)
+    // console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ name", name)
     // console.log("e.target",e.target)
     // if (value === undefined) value = e.target.value;
 
