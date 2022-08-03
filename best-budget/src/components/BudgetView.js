@@ -135,12 +135,12 @@ export default function Categories() {
         handleItemChanges,
         handleAmountChanges
       }} >
-      {personalCategories.map((category) => (
+      {businessCategories.map((category) => (
         <Accordion expanded={expanded === 'panel' + category.id} key={category.id} onChange={handleChange('panel' + category.id)}>
           
           <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header">
             
-            <CategoryHeader category={category} budgetTotal='1000' expenseTotal='500'/>
+            <CategoryHeader category={category.name} budgetTotal='1100.45' expenseTotal='500.00' estPercent={category.startPercent}/>
 
           </AccordionSummary>
 
