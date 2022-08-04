@@ -31,7 +31,11 @@ console.log("🚀 ~ file: CategoryHeader.js ~ line 7 ~ CategoryHeader ~ category
         { category === 'Income' ? <></> :
           <>
             <Grid item xs={3} sx={{textAlign: 'left'}}>
-              <Typography>left: {budgLeft}</Typography>
+              { budgLeft > 0 ? 
+                <Typography sx={{color: 'green'}}>Left: {budgLeft}</Typography> 
+                :
+                <Typography sx={{color: 'red'}}>Left: {budgLeft}</Typography>
+              }
             </Grid>
             <Grid item xs={3} sx={{textAlign: 'right'}}>
               <Typography> Estimates:</Typography>
