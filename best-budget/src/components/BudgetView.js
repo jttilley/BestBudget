@@ -11,9 +11,7 @@ import AddBudgetItem from './AddBudgetItem';
 import { personalCategories, businessCategories } from '../utils/allCategories';
 import BudgetContext from '../utils/BudgetContext'; 
 import CategoryHeader from './CategoryHeader';
-import Grid from '@mui/material/Grid'
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import SavingsIcon from '@mui/icons-material/Savings';
+
 
 // initialize budgetItems
 let budgetItems = [];
@@ -138,13 +136,13 @@ export default function Categories() {
       {businessCategories.map((category) => (
         <Accordion expanded={expanded === 'panel' + category.id} key={category.id} onChange={handleChange('panel' + category.id)}>
           
-          <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header">
+          <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header" sx={{backgroundColor: 'silver'}}>
             
-            <CategoryHeader category={category.name} budgetTotal='1100.45' expenseTotal='500.00' estPercent={category.startPercent}/>
+            <CategoryHeader category={category.name} budgetTotal='1100.45' expenseTotal='500.00' estPercent={category.startPercent} income='2500'/>
 
           </AccordionSummary>
 
-          <AccordionDetails>
+          <AccordionDetails sx={{backgroundColor: 'aliceblue'}}>
             
             <AddBudgetItem category={category.name} subCategories={category.subCategories}/>
             
