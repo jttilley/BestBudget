@@ -13,7 +13,7 @@ import BudgetContext from '../utils/BudgetContext';
 //   paddingLeft: theme.spacing(5),
 // }));
 
-export default function AddBudgetItem({ category, subCategories }) {
+export default function AddBudgetItem({ category, subCategories, id }) {
   const { addItem } = React.useContext(BudgetContext);
 
   const itemId = `${category}_itemDesc`;
@@ -54,7 +54,7 @@ export default function AddBudgetItem({ category, subCategories }) {
       alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item. Total Debt: " + debtTotal);
     } else alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
 
-    addItem(description,amount,type,category,debtTotal)
+    addItem(description,amount,type,category,id,debtTotal);
 
   }
   

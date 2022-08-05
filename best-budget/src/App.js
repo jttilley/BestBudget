@@ -1,12 +1,13 @@
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
-import Categories from './components/BudgetView';
+import Home from './Pages/Home';
 
 function App() {
+
   return (
     <div className="App">
       <CssBaseline/>
-      <Categories/>
+      <Home/>
     </div>
   );
 }

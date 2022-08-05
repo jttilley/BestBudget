@@ -8,21 +8,8 @@ import MuiAccordionSummary, {
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import AddBudgetItem from './AddBudgetItem';
-import { personalCategories, businessCategories } from '../utils/allCategories';
 import BudgetContext from '../utils/BudgetContext'; 
 import CategoryHeader from './CategoryHeader';
-
-
-// initialize budgetItems
-let budgetItems = [];
-console.log("🚀 ~ file: Categories.js ~ line 15 ~ budgetItems", budgetItems)
-
-// if localStorage has data saved use that
-let local = localStorage.getItem("budgetItems");
-if (local) budgetItems = JSON.parse(local);
-
-console.log('🚀 ~ file: Categories.js ~ line 15 ~ localStorage.getItem("budgetItems")', localStorage.getItem("budgetItems"));
-console.log("🚀 ~ file: Categories.js ~ line 15 ~ budgetItems", budgetItems)
 
 // copied from Material UI site
 const Accordion = styled((props) => (
@@ -66,28 +53,73 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-// Layout budget categories
-export default function Categories() {
-  // const [expanded, setExpanded] = React.useState<"" | false>('panel1');
+const GetMonthsLastDay = (month = -1) => {
+  let dt = new Date()
+  if (month >= 0) dt = new Date(dt.getFullYear(), month);
+  dt = new Date(dt.getFullYear(), dt.getMonth()+1, 0)
+  return dt.getDate(); 
+}
 
-  // const handleChange =
+// Layout budget categories
+export default function Categories({categories}) {
+  
+// if localStorage has budgetItems saved use that
+let localItems = [];
+let local = localStorage.getItem("budgetItems");
+if (local) {
+  localItems = JSON.parse(local);
+} 
+console.log("🚀 ~ file: BudgetView.js ~ line 70 ~ localItems", localItems)
+
+
+
+  const [budgetCategories, setBudgetCategories] = React.useState(categories);
+  // console.log("🚀 ~ file: BudgetView.js ~ line 79 ~ Categories ~ budgetCategories", budgetCategories)
+  const [budgetItems, setBudgetItems] = React.useState(localItems);
+  // console.log("🚀 ~ file: BudgetView.js ~ line 80 ~ Categories ~ budgetItems", budgetItems)
+    
+  // const [expanded, setExpanded] = React.useState<"" | false>('panel1');
+  const [expanded, setExpanded] = React.useState(false);
+
+    // const handleChange =
   //   (panel: "string") => (event: React.SyntheticEvent, newExpanded: boolean) => {
   //     setExpanded(newExpanded ? panel : false);
   //   };
-
-  const [expanded, setExpanded] = React.useState(false);
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const addItem = (description,amount,type,category,debtTotal) => {
+  React.useEffect(() => {
+    setBudgetCategories(categories);
+  },[]); 
+  
+  
+
+  const CalculateIncomeTotal = (budgetItem) => {
+
+  }
+
+
+  const addItem = (description,amount,type,category,categoryId,debtTotal,startDt=null) => {
+    
+    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ description", description)
+    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ amount", amount)
+    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ type", type)
+    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ debtTotal", debtTotal)
+    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ categoryId", categoryId)
+    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ category", category)
+
+    // convert category id into category index
+    const idx = categoryId-1;
+
     // default debt dates to today if not needed
-    let startDt = new Date(); //start date for debt calculations
+    if (!startDt) startDt = new Date(); //start date for debt calculations
     let endDt = new Date();  // end date for debt calculations
 
     let userId = -1; //default userId if not logged in
-
+    let amt = parseFloat(amount)
+    
+    
     //Get user id if logged in *******
 
 
@@ -97,25 +129,61 @@ export default function Categories() {
       endDt.setMonth(endDt.getMonth() + moCnt)
     }
 
+    // console.log("🚀 ~ file: BudgetView.js ~ line 128 ~ addItem ~ category", category)
+    if (category === 'Income') {
+      let days = GetMonthsLastDay(); 
+      
+      switch (description) {
+        case "Daily":
+          categories[idx].budgetTotal += amt * days;
+          break;
+        case "Weekly":
+          categories[idx].budgetTotal += amt * 4;
+          break;
+        case "Bi-Weekly":
+          categories[idx].budgetTotal += amt * 2;
+          break;
+        default: // monthly or one time
+          categories[idx].budgetTotal += amt;
+          break;
+      }
+      
+      alert(`Total income amount = ${categories[0].budgetTotal}
+      Amount added = ${amt} for ${description}`);
+
+    } else if (type === "Budget") {
+      categories[idx].budgetTotal += amt;
+    } else {
+      categories[idx].expensesTotal += amt;
+    }
+    
+    console.log("🚀 ~ file: BudgetView.js ~ line 152 ~ addItem ~ idx", idx)
+    console.log("🚀 ~ file: BudgetView.js ~ line 151 ~ addItem ~ categories[idx]", categories[idx])
+
+
     // create budgetItem object from submission
     var newItem = {
       name: description,
       amount: amount,
       isExpense: type === "Budget" ? false : true,
-      category: category,
+      category:category,
+      categoryId: categoryId,
       debtTotal: debtTotal,
-      debtStart: startDt,
-      debtEnd: endDt,
+      startDate: startDt,
+      endDate: endDt,
       userId: userId,
     };
 
-    console.log("🚀 ~ file: BudgetView.js ~ line 109 ~ addItem ~ newItem", newItem)
+    console.log("🚀 ~ file: BudgetView.js ~ line 159 ~ addItem ~ newItem", newItem)
 
     // add Item to budgetItems
-    budgetItems.push(newItem)
+    localItems.push(newItem);
     
     // set new submission to local storage 
-    localStorage.setItem("budgetItems", JSON.stringify(budgetItems));
+    localStorage.setItem("budgetItems", JSON.stringify(localItems));
+    localStorage.setItem("categories",JSON.stringify(categories));
+    
+    setBudgetItems(localItems);
   };
 
   const handleItemChanges = (e) => {
@@ -133,18 +201,18 @@ export default function Categories() {
         handleItemChanges,
         handleAmountChanges
       }} >
-      {businessCategories.map((category) => (
+      {budgetCategories.map((category, i) => (
         <Accordion expanded={expanded === 'panel' + category.id} key={category.id} onChange={handleChange('panel' + category.id)}>
           
           <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header" sx={{backgroundColor: 'silver'}}>
             
-            <CategoryHeader category={category.name} budgetTotal='1100.45' expenseTotal='500.00' estPercent={category.startPercent} income='2500'/>
+            <CategoryHeader category={category.name} budgetTotal={category.budgetTotal} expenseTotal={category.expensesTotal} estPercent={category.startPercent} income={budgetCategories[0].budgetTotal}/>
 
           </AccordionSummary>
 
           <AccordionDetails sx={{backgroundColor: 'aliceblue'}}>
             
-            <AddBudgetItem category={category.name} subCategories={category.subCategories}/>
+            <AddBudgetItem category={category.name} subCategories={category.subCategories} id={category.id}/>
             
             <Typography>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
