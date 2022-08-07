@@ -3,6 +3,7 @@ import { Grid, Typography } from "@mui/material";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import SavingsIcon from '@mui/icons-material/Savings';
 
+// add totals info to category header
 const CategoryHeader = ({category, budgetTotal, expenseTotal, estPercent, income}) => {
 // console.log("🚀 ~ file: CategoryHeader.js ~ line 7 ~ CategoryHeader ~ category", category)
   

@@ -50,16 +50,16 @@ export default function AddBudgetItem({ category, subCategories, id }) {
     console.log("🚀 ~ file: AddBudgetItem.js ~ line 52 ~ handleAddItem ~ itemState", itemState)
     
     const {description, amount, type, debtTotal} = itemState;
-    if (category === 'Debt') {
-      alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item. Total Debt: " + debtTotal);
-    } else alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
+    // if (category === 'Debt') {
+    //   alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item. Total Debt: " + debtTotal);
+    // } else alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
 
     addItem(description,amount,type,category,id,debtTotal);
-
+    
   }
   
   return (
-    <div>
+    <form>
       <Grid container sx={{ padding: 0 }}>
         <Grid item xs={5}>
           <Autocomplete
@@ -134,7 +134,7 @@ export default function AddBudgetItem({ category, subCategories, id }) {
         </Grid>
       }
       </Grid>
-    </div>
+    </form>
   );
 }
 

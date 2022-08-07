@@ -5,6 +5,8 @@ const personalCategories = [
     startPercent: 100,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Weekly", 
       "Bi-Weekly", 
@@ -19,6 +21,8 @@ const personalCategories = [
     startPercent: 25,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "1st Mortgage",
       "2nd Mortgage",
@@ -35,6 +39,8 @@ const personalCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Electricity",
       "Gas",
@@ -59,6 +65,8 @@ const personalCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Life",
       "Health",
@@ -75,6 +83,8 @@ const personalCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Tithes",
       "Charity"
@@ -87,6 +97,8 @@ const personalCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Gas & Oil",
       "Repairs & Tires",
@@ -101,6 +113,8 @@ const personalCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Credit Card",
       "Car Payment",
@@ -120,6 +134,8 @@ const personalCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Groceries",
       "Resturants/Takeout",
@@ -140,6 +156,8 @@ const personalCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Vitamins",
       "Medications",
@@ -155,6 +173,8 @@ const personalCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Pocket Money",
       "Toiletries",
@@ -179,6 +199,8 @@ const personalCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Gym Membership",
       "Entertainment",
@@ -193,6 +215,8 @@ const personalCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Emergency Fund",
       "Christmas",
@@ -208,6 +232,8 @@ const personalCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Adults", 
       "Children", 
@@ -223,6 +249,8 @@ const businessCategories = [
     startPercent: 100,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: ["Daily", "Weekly", "Bi-Weekly", "Monthly", "One Time"]
   },{
     id: 2,
@@ -232,6 +260,8 @@ const businessCategories = [
     startPercent: 25,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: ["Reception","Sales","Labor","Software","Engineering","Managment","Tech","Assistance","Remote","Human Resources"]
   },{
     id: 3,
@@ -241,6 +271,8 @@ const businessCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: ["Mortgage","Rent","Insurance","Taxes","Equipment"]
   },{
     id: 4,
@@ -250,6 +282,8 @@ const businessCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Electricity",
       "Gas",
@@ -267,6 +301,8 @@ const businessCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Charity"
     ]
@@ -278,6 +314,8 @@ const businessCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Gas & Oil",
       "Repairs & Tires",
@@ -292,6 +330,8 @@ const businessCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Credit Card",
       "Vehical Payment",
@@ -306,6 +346,8 @@ const businessCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Groceries",
       "Resturants/Takeout"
@@ -318,6 +360,8 @@ const businessCategories = [
     startPercent: 10,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: ["Publications","Signs"]
   },{
     id: 10,
@@ -327,6 +371,8 @@ const businessCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: ["Event","Wine & Dine","Conference","Client"]
   },{
     id: 11,
@@ -336,6 +382,8 @@ const businessCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: ["Vehical","Workers Comp","Renters","Mortgage","Health","Dental","Vision"]
   },{
     id: 12,
@@ -345,6 +393,8 @@ const businessCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [ "Plumbing","Heating","Protection","Monitoring","Phone","Repairs"]
   },
   {
@@ -355,6 +405,8 @@ const businessCategories = [
     startPercent: 5,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: [
       "Emergency Fund",
       "Christmas",
@@ -372,6 +424,8 @@ const businessCategories = [
     startPercent: 15,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
+    budgets:[],
+    expenses: [],
     subCategories: []
   }
 ];

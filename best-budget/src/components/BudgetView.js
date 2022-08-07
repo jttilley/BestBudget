@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import AddBudgetItem from './AddBudgetItem';
 import BudgetContext from '../utils/BudgetContext'; 
 import CategoryHeader from './CategoryHeader';
+import BudgetItems from './BudgetItems';
 
 // copied from Material UI site
 const Accordion = styled((props) => (
@@ -69,14 +70,9 @@ let local = localStorage.getItem("budgetItems");
 if (local) {
   localItems = JSON.parse(local);
 } 
-console.log("🚀 ~ file: BudgetView.js ~ line 70 ~ localItems", localItems)
-
-
 
   const [budgetCategories, setBudgetCategories] = React.useState(categories);
-  // console.log("🚀 ~ file: BudgetView.js ~ line 79 ~ Categories ~ budgetCategories", budgetCategories)
   const [budgetItems, setBudgetItems] = React.useState(localItems);
-  // console.log("🚀 ~ file: BudgetView.js ~ line 80 ~ Categories ~ budgetItems", budgetItems)
     
   // const [expanded, setExpanded] = React.useState<"" | false>('panel1');
   const [expanded, setExpanded] = React.useState(false);
@@ -89,26 +85,58 @@ console.log("🚀 ~ file: BudgetView.js ~ line 70 ~ localItems", localItems)
     setExpanded(newExpanded ? panel : false);
   };
 
-  React.useEffect(() => {
+  React.useEffect(() => {   
+    OrganizeBudgetItems();
     setBudgetCategories(categories);
   },[]); 
   
   
+  const OrganizeBudgetItems = () => {
+    //clear out budget item lists
+    categories.forEach(c => {
+      c.expenses = [];
+      c.budgets = [];
+    })
 
-  const CalculateIncomeTotal = (budgetItem) => {
-
+    //recreate budget item lists
+    budgetItems.forEach(item => {
+      // initialize expenses and budgets
+      const idx = item.categoryId-1
+      
+      if (item.isExpense && item.category !== 'Income') {
+        categories[idx].expenses.push(item);
+      } else {
+        categories[idx].budgets.push(item);
+      }
+      // console.log("🚀 ~ file: BudgetView.js ~ line 103 ~ OrganizeBudgetItems ~ categories[idx] AFTER", categories[idx])
+    });
   }
 
 
-  const addItem = (description,amount,type,category,categoryId,debtTotal,startDt=null) => {
-    
-    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ description", description)
-    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ amount", amount)
-    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ type", type)
-    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ debtTotal", debtTotal)
-    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ categoryId", categoryId)
-    console.log("🚀 ~ file: BudgetView.js ~ line 90 ~ addItem ~ category", category)
 
+  const AddIncome = (description, amt) => {
+    let days = GetMonthsLastDay(); 
+    
+    switch (description) {
+      case "Daily":
+        categories[0].budgetTotal += amt * days;
+        break;
+      case "Weekly":
+        categories[0].budgetTotal += amt * 4;
+        break;
+      case "Bi-Weekly":
+        categories[0].budgetTotal += amt * 2;
+        break;
+      default: // monthly or one time
+        categories[0].budgetTotal += amt;
+        break;
+    }
+  }
+
+
+
+
+  const addItem = (description,amount,type,category,categoryId,debtTotal,startDt=null) => {
     // convert category id into category index
     const idx = categoryId-1;
 
@@ -129,38 +157,6 @@ console.log("🚀 ~ file: BudgetView.js ~ line 70 ~ localItems", localItems)
       endDt.setMonth(endDt.getMonth() + moCnt)
     }
 
-    // console.log("🚀 ~ file: BudgetView.js ~ line 128 ~ addItem ~ category", category)
-    if (category === 'Income') {
-      let days = GetMonthsLastDay(); 
-      
-      switch (description) {
-        case "Daily":
-          categories[idx].budgetTotal += amt * days;
-          break;
-        case "Weekly":
-          categories[idx].budgetTotal += amt * 4;
-          break;
-        case "Bi-Weekly":
-          categories[idx].budgetTotal += amt * 2;
-          break;
-        default: // monthly or one time
-          categories[idx].budgetTotal += amt;
-          break;
-      }
-      
-      alert(`Total income amount = ${categories[0].budgetTotal}
-      Amount added = ${amt} for ${description}`);
-
-    } else if (type === "Budget") {
-      categories[idx].budgetTotal += amt;
-    } else {
-      categories[idx].expensesTotal += amt;
-    }
-    
-    console.log("🚀 ~ file: BudgetView.js ~ line 152 ~ addItem ~ idx", idx)
-    console.log("🚀 ~ file: BudgetView.js ~ line 151 ~ addItem ~ categories[idx]", categories[idx])
-
-
     // create budgetItem object from submission
     var newItem = {
       name: description,
@@ -176,6 +172,24 @@ console.log("🚀 ~ file: BudgetView.js ~ line 70 ~ localItems", localItems)
 
     console.log("🚀 ~ file: BudgetView.js ~ line 159 ~ addItem ~ newItem", newItem)
 
+    if (category === 'Income') {
+      AddIncome(description, amt);
+      categories[idx].budgets.push(newItem);
+      
+      // alert(`Total income amount = ${categories[0].budgetTotal}
+      // Amount added = ${amt} for ${description}`);
+      
+      console.log("🚀 ~ file: BudgetView.js ~ line 196 ~ addItem ~ type", type)
+    } else if (type === "Budget") {
+      categories[idx].budgetTotal += amt;
+      categories[idx].budgets.push(newItem);
+    } else {
+      categories[idx].expensesTotal += amt;
+      categories[idx].expenses.push(newItem);
+    }
+    
+    console.log("🚀 ~ file: BudgetView.js ~ line 201 ~ addItem ~ categories[idx]", categories[idx]);
+    
     // add Item to budgetItems
     localItems.push(newItem);
     
@@ -184,6 +198,7 @@ console.log("🚀 ~ file: BudgetView.js ~ line 70 ~ localItems", localItems)
     localStorage.setItem("categories",JSON.stringify(categories));
     
     setBudgetItems(localItems);
+    
   };
 
   const handleItemChanges = (e) => {
@@ -214,12 +229,14 @@ console.log("🚀 ~ file: BudgetView.js ~ line 70 ~ localItems", localItems)
             
             <AddBudgetItem category={category.name} subCategories={category.subCategories} id={category.id}/>
             
-            <Typography>
+            <BudgetItems budgetItems={category.budgets} expenseItems={category.expenses}/>
+
+            {/* <Typography>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
               malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
               sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
               sit amet blandit leo lobortis eget.
-            </Typography>
+            </Typography> */}
 
           </AccordionDetails>
 
