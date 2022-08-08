@@ -74,7 +74,10 @@ if (local) {
   const [budgetCategories, setBudgetCategories] = React.useState(categories);
   const [budgetItems, setBudgetItems] = React.useState(localItems);
     
+  let startPanel;
+
   // const [expanded, setExpanded] = React.useState<"" | false>('panel1');
+  // const [expanded, setExpanded] = React.useState(categories[0].budgetTotal === 0 ? 'panel1' : false);
   const [expanded, setExpanded] = React.useState(false);
 
     // const handleChange =
@@ -85,10 +88,10 @@ if (local) {
     setExpanded(newExpanded ? panel : false);
   };
 
-  React.useEffect(() => {   
-    OrganizeBudgetItems();
-    setBudgetCategories(categories);
-  },[]); 
+  // React.useEffect(() => {   
+  //   OrganizeBudgetItems();
+  //   setBudgetCategories(categories);
+  // },[]); 
   
   
   const OrganizeBudgetItems = () => {
@@ -103,7 +106,7 @@ if (local) {
       // initialize expenses and budgets
       const idx = item.categoryId-1
       
-      if (item.isExpense && item.category !== 'Income') {
+      if (item.isExpense) {
         categories[idx].expenses.push(item);
       } else {
         categories[idx].budgets.push(item);
@@ -136,7 +139,7 @@ if (local) {
 
 
 
-  const addItem = (description,amount,type,category,categoryId,debtTotal,startDt=null) => {
+  const addItem = (description,amount,type,category,categoryId,debtTotal,interest,startDt=null) => {
     // convert category id into category index
     const idx = categoryId-1;
 
@@ -161,12 +164,13 @@ if (local) {
     var newItem = {
       name: description,
       amount: amount,
-      isExpense: type === "Budget" ? false : true,
+      isExpense: type === "Budget" ? false : true, //convert to boolean
       category:category,
       categoryId: categoryId,
       debtTotal: debtTotal,
-      startDate: startDt,
-      endDate: endDt,
+      interest: interest / 100, //convert to percentage
+      startDate: startDt.toISOString(), //convert to "2024-06-08T04:51:48.855Z" format
+      endDate: endDt.toISOString(), //convert to "2024-06-08T04:51:48.855Z" format
       userId: userId,
     };
 
@@ -197,8 +201,8 @@ if (local) {
     localStorage.setItem("budgetItems", JSON.stringify(localItems));
     localStorage.setItem("categories",JSON.stringify(categories));
     
+    setBudgetCategories(categories);
     setBudgetItems(localItems);
-    
   };
 
   const handleItemChanges = (e) => {

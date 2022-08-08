@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Autocomplete from '@mui/material/Autocomplete';
 // import { styled } from '@mui/material/styles';
 // import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material';
+import { Button, Input, InputLabel } from '@mui/material';
 import BudgetContext from '../utils/BudgetContext';
 
 
@@ -20,7 +20,7 @@ export default function AddBudgetItem({ category, subCategories, id }) {
   const amountId = `${category}_amount`;
   const typeId = `${category}_type`;
   
-  const [itemState, setItemState] = React.useState({ description: '', amount: '', type: 'Budget', debtTotal: '' });
+  const [itemState, setItemState] = React.useState({ description: '', amount: '', type: 'Budget', debtTotal: '', interest: '' });
 
   let descLabel = 'Item Description'
   let amountLabel = 'Pay $'
@@ -49,12 +49,9 @@ export default function AddBudgetItem({ category, subCategories, id }) {
   const handleAddItem = (e) => {
     console.log("🚀 ~ file: AddBudgetItem.js ~ line 52 ~ handleAddItem ~ itemState", itemState)
     
-    const {description, amount, type, debtTotal} = itemState;
-    // if (category === 'Debt') {
-    //   alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item. Total Debt: " + debtTotal);
-    // } else alert("I'm adding the item " + description + " for " + amount + " as a " + type + " item.");
+    const {description, amount, type, debtTotal, interest} = itemState;
 
-    addItem(description,amount,type,category,id,debtTotal);
+    addItem(description,amount,type,category,id,debtTotal,interest);
     
   }
   
@@ -112,11 +109,22 @@ export default function AddBudgetItem({ category, subCategories, id }) {
         {/* modify layout for Debt */}
         {category === 'Debt' ?
           <>
-            <Grid item xs={5} sx={{paddingTop:1}}>
+            <Grid item xs={4} sx={{paddingTop:1}}>
               <TextField id='Debt_total' 
                 label="Debt Total $" 
                 variant="outlined" 
                 name="debtTotal" 
+                type="number"
+                fullWidth
+                size='small'
+                onChange={handleChange}
+                onSelect={handleChange}
+              />
+              </Grid> <Grid item xs={4} sx={{paddingTop:1}}>
+              <TextField id='intrest' 
+                label="Interest Rate %" 
+                variant="outlined" 
+                name="interest" 
                 type="number"
                 fullWidth
                 size='small'
