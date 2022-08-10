@@ -2,6 +2,8 @@ import React from "react";
 import { Grid, Typography } from "@mui/material";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import SavingsIcon from '@mui/icons-material/Savings';
+import styled from 'styled-components';
+import { maxWidth } from "@mui/system";
 
 // add totals info to category header
 const CategoryHeader = ({category, budgetTotal, expenseTotal, estPercent, income}) => {
@@ -16,10 +18,10 @@ const CategoryHeader = ({category, budgetTotal, expenseTotal, estPercent, income
     <>
       <Grid container sx={{textAlign: 'left'}}>
         <Grid item xs={4}>
-          <Typography><strong>{category}</strong></Typography>
+          <Typography ><strong>{category}</strong></Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography><SavingsIcon fontSize="small" sx={{color: 'green', alignItems: 'flex-end'}}/>${budgetTotal}</Typography>
+          <Typography><SavingsIcon fontSize="small" sx={{color: 'green', alignItems: 'flex-end'}}/>${budgetTotal.toFixed(2)}</Typography>
         </Grid>
         { category === 'Income' ? <Grid item xs={3}></Grid> :
             <Grid item xs={3}>

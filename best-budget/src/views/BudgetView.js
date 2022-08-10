@@ -1,18 +1,16 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
-import MuiAccordion, { AccordionProps } from '@mui/material/Accordion';
-import MuiAccordionSummary, {
-  AccordionSummaryProps,
-} from '@mui/material/AccordionSummary';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import AddBudgetItem from './AddBudgetItem';
+import AddBudgetItem from '../components/AddBudgetItem';
 import BudgetContext from '../utils/BudgetContext'; 
-import CategoryHeader from './CategoryHeader';
-import BudgetItems from './BudgetItems';
+import CategoryHeader from '../components/CategoryHeader';
+import BudgetItems from '../components/BudgetItems';
+import CategoryHeader2 from '../components/catHead2';
 
-// copied from Material UI site
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))(({ theme }) => ({
@@ -23,12 +21,8 @@ const Accordion = styled((props) => (
   '&:before': {
     display: 'none',
   },
-  palette: {
-    mode: 'dark',
-  },
 }));
 
-// copied from Material UI site
 const AccordionSummary = styled((props) => (
   <MuiAccordionSummary
     expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
@@ -48,11 +42,11 @@ const AccordionSummary = styled((props) => (
   },
 }));
 
-// copied from Material UI site
 const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   padding: theme.spacing(2),
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
+
 
 const GetMonthsLastDay = (month = -1) => {
   let dt = new Date()
@@ -74,20 +68,12 @@ if (local) {
   const [budgetCategories, setBudgetCategories] = React.useState(categories);
   const [budgetItems, setBudgetItems] = React.useState(localItems);
     
-  let startPanel;
-
-  // const [expanded, setExpanded] = React.useState<"" | false>('panel1');
   // const [expanded, setExpanded] = React.useState(categories[0].budgetTotal === 0 ? 'panel1' : false);
   const [expanded, setExpanded] = React.useState(false);
 
-    // const handleChange =
-  //   (panel: "string") => (event: React.SyntheticEvent, newExpanded: boolean) => {
-  //     setExpanded(newExpanded ? panel : false);
-  //   };
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
-  };
-
+  }
   // React.useEffect(() => {   
   //   OrganizeBudgetItems();
   //   setBudgetCategories(categories);
@@ -225,7 +211,7 @@ if (local) {
           
           <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header" sx={{backgroundColor: 'silver'}}>
             
-            <CategoryHeader category={category.name} budgetTotal={category.budgetTotal} expenseTotal={category.expensesTotal} estPercent={category.startPercent} income={budgetCategories[0].budgetTotal}/>
+            <CategoryHeader2 category={category.name} budgetTotal={category.budgetTotal} expenseTotal={category.expensesTotal} estPercent={category.startPercent} income={budgetCategories[0].budgetTotal}/>
 
           </AccordionSummary>
 

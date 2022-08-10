@@ -16,6 +16,8 @@ import BudgetContext from '../utils/BudgetContext';
 export default function AddBudgetItem({ category, subCategories, id }) {
   const { addItem } = React.useContext(BudgetContext);
 
+  const [errorMsg, setErrorMsg] = React.useState("")
+
   const itemId = `${category}_itemDesc`;
   const amountId = `${category}_amount`;
   const typeId = `${category}_type`;
@@ -48,8 +50,27 @@ export default function AddBudgetItem({ category, subCategories, id }) {
 
   const handleAddItem = (e) => {
     console.log("🚀 ~ file: AddBudgetItem.js ~ line 52 ~ handleAddItem ~ itemState", itemState)
-    
     const {description, amount, type, debtTotal, interest} = itemState;
+
+    let missingInput = "";
+
+    if (description === "") missingInput += "Item Description, ";
+    if (amount === "") missingInput += "Pay, ";
+    if (type !== 'Budget' && type !== 'Expense') missingInput += "Item Type must be Budget or Expense"
+
+    if (category === 'Debt') {
+      if (debtTotal === "") missingInput += "Debt Total, ";
+      if (interest === "") missingInput += "Interest Rate, ";
+    }
+    console.log("🚀 ~ file: AddBudgetItem.js ~ line 61 ~ handleAddItem ~ missingInput", missingInput)
+    
+    if (missingInput !== "") {
+      missingInput = missingInput.substring(0,missingInput.length - 2); //trim  off last comma & space
+      setErrorMsg(`The item cannot be added because you are missing the following info: \r\n${missingInput}`);
+      return;
+    } else {
+      setErrorMsg("");
+    }
 
     addItem(description,amount,type,category,id,debtTotal,interest);
     
@@ -65,15 +86,15 @@ export default function AddBudgetItem({ category, subCategories, id }) {
             id={itemId}
             options={subCategories.map((option) => option)}
             renderInput={(params) => <TextField {...params} 
-                                      variant="outlined" 
-                                      label={descLabel}
-                                      name="description" 
-                                      size='small'
-                                      spellCheck="true"
-                                      onChange={handleChange}
-                                      onSelect={handleChange}
-                                    />}
-          />
+            variant="outlined" 
+            label={descLabel}
+            name="description" 
+            size='small'
+            spellCheck="true"
+            onChange={handleChange}
+            onSelect={handleChange}
+            />}
+            />
         </Grid>
         <Grid item xs={3}>
           <TextField id={amountId} 
@@ -84,7 +105,7 @@ export default function AddBudgetItem({ category, subCategories, id }) {
             size='small'
             onChange={handleChange}
             onSelect={handleChange}
-          />
+            />
         </Grid>
         {/* don't need this for income */}
         { category !== 'Income' ? 
@@ -96,13 +117,13 @@ export default function AddBudgetItem({ category, subCategories, id }) {
           defaultValue={"Budget"}
           size='small'
           renderInput={(params) => <TextField {...params} 
-                                    variant="outlined" 
-                                    label="Item Type" 
-                                    name="type" 
-                                    size='small'
-                                    onChange={handleChange}
-                                    onSelect={handleChange}
-                                  />}
+          variant="outlined" 
+          label="Item Type" 
+          name="type" 
+          size='small'
+          onChange={handleChange}
+          onSelect={handleChange}
+          />}
           />
         </Grid>
         :<></>}
@@ -119,7 +140,7 @@ export default function AddBudgetItem({ category, subCategories, id }) {
                 size='small'
                 onChange={handleChange}
                 onSelect={handleChange}
-              />
+                />
               </Grid> <Grid item xs={4} sx={{paddingTop:1}}>
               <TextField id='intrest' 
                 label="Interest Rate %" 
@@ -130,18 +151,19 @@ export default function AddBudgetItem({ category, subCategories, id }) {
                 size='small'
                 onChange={handleChange}
                 onSelect={handleChange}
-              />
+                />
               </Grid>
               <Grid item xs={1} sx={{paddingTop: '9px', paddingLeft:1}} >
               <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
             </Grid>
           </> 
       : 
-        <Grid item xs={1} sx={{paddingTop:'2px'}} >
+      <Grid item xs={1} sx={{paddingTop:'2px'}} >
           <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
         </Grid>
       }
       </Grid>
+      <p style={{color: "red"}}>{errorMsg}</p>
     </form>
   );
 }
