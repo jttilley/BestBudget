@@ -2,6 +2,7 @@ import React from "react";
 
 const BudgetContext = React.createContext({
   // functions for updating
+  butonType: "",
   addItem: () => {},
   handleItemChanges: () => {},
   handleAmountChanges: () => {},

@@ -1,8 +1,29 @@
 import React from 'react';
 import {Grid, Paper, Typography} from '@mui/material';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 export default function BudgetList({theList}) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleEdit = () => {
+    setAnchorEl(null);
+  };
+
+  const handleDelete = () => {
+    setAnchorEl(null);
+  };
+
   const CalculateDebtLeft = item => {
 
     let totalLeft = 0.0
@@ -58,7 +79,32 @@ export default function BudgetList({theList}) {
 
         return(
         <Grid item key={gridId} sx={{paddingTop: 1, paddingRight: 1, textAlign: 'right'}} xs={12}>
-          <Paper key={paperId}>{txt}</Paper>
+          <Paper key={paperId}
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+          >{txt}</Paper>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <MenuItem onClick={handleEdit}>Edit</MenuItem>
+            <MenuItem onClick={handleDelete}>Delete</MenuItem>
+          </Menu>
         </Grid>
       )})}
     </Grid>

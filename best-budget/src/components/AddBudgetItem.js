@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
 // import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -7,22 +7,30 @@ import Autocomplete from '@mui/material/Autocomplete';
 // import Paper from '@mui/material/Paper';
 import { Button, Input, InputLabel } from '@mui/material';
 import BudgetContext from '../utils/BudgetContext';
-
+// import BasicDatePicker from './calendarPicker'
 
 // const itemStyling = styled(Paper)(({ theme }) => ({
 //   paddingLeft: theme.spacing(5),
 // }));
 
 export default function AddBudgetItem({ category, subCategories, id }) {
-  const { addItem } = React.useContext(BudgetContext);
-
-  const [errorMsg, setErrorMsg] = React.useState("")
+  const { addItem } = useContext(BudgetContext);
+  const [errorMsg, setErrorMsg] = useState("");
 
   const itemId = `${category}_itemDesc`;
   const amountId = `${category}_amount`;
   const typeId = `${category}_type`;
-  
-  const [itemState, setItemState] = React.useState({ description: '', amount: '', type: 'Budget', debtTotal: '', interest: '' });
+  const interestId = `${category}_interest`;
+  const dTotalId = `${category}_dtotal`;
+
+  const [itemState, setItemState] = useState({ 
+    description: '',
+    amount: '', 
+    type: 'Budget', 
+    debtTotal: '', 
+    interest: '', 
+    startDate: null, 
+  });
 
   let descLabel = 'Item Description'
   let amountLabel = 'Pay $'
@@ -33,11 +41,11 @@ export default function AddBudgetItem({ category, subCategories, id }) {
     amountLabel = 'Paid $'
   }
 
+  let startText = 'Due Date';
+
   //for local changes to inputs
   const handleChange = (e) => {
     const {name, value} = e.target;
-    // console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ value", value)
-    // console.log("🚀 ~ file: AddBudgetItem.js ~ line 37 ~ handleChange ~ name", name)
     // console.log("e.target",e.target)
     // if (value === undefined) value = e.target.value;
 
@@ -45,11 +53,12 @@ export default function AddBudgetItem({ category, subCategories, id }) {
       ...itemState,
       [name]: value,
     });
-    // console.log(itemState);
+    console.log("itemstate",itemState);
+    console.log("category",category);
   }
 
   const handleAddItem = (e) => {
-    console.log("🚀 ~ file: AddBudgetItem.js ~ line 52 ~ handleAddItem ~ itemState", itemState)
+    
     const {description, amount, type, debtTotal, interest} = itemState;
 
     let missingInput = "";
@@ -62,7 +71,6 @@ export default function AddBudgetItem({ category, subCategories, id }) {
       if (debtTotal === "") missingInput += "Debt Total, ";
       if (interest === "") missingInput += "Interest Rate, ";
     }
-    console.log("🚀 ~ file: AddBudgetItem.js ~ line 61 ~ handleAddItem ~ missingInput", missingInput)
     
     if (missingInput !== "") {
       missingInput = missingInput.substring(0,missingInput.length - 2); //trim  off last comma & space
@@ -113,8 +121,9 @@ export default function AddBudgetItem({ category, subCategories, id }) {
           <Autocomplete
           id={typeId}
           disableClearable
+          disablePortal
           options={["Budget","Expense"]}
-          defaultValue={"Budget"}
+          defaultValue='Budget'
           size='small'
           renderInput={(params) => <TextField {...params} 
           variant="outlined" 
@@ -131,8 +140,8 @@ export default function AddBudgetItem({ category, subCategories, id }) {
         {category === 'Debt' ?
           <>
             <Grid item xs={4} sx={{paddingTop:1}}>
-              <TextField id='Debt_total' 
-                label="Debt Total $" 
+              <TextField id={dTotalId} 
+                label="Total Debt $" 
                 variant="outlined" 
                 name="debtTotal" 
                 type="number"
@@ -141,27 +150,40 @@ export default function AddBudgetItem({ category, subCategories, id }) {
                 onChange={handleChange}
                 onSelect={handleChange}
                 />
-              </Grid> <Grid item xs={4} sx={{paddingTop:1}}>
-              <TextField id='intrest' 
-                label="Interest Rate %" 
-                variant="outlined" 
-                name="interest" 
-                type="number"
-                fullWidth
-                size='small'
-                onChange={handleChange}
-                onSelect={handleChange}
-                />
+              </Grid> 
+              <Grid item xs={4} sx={{paddingTop:1}}>
+                <TextField id={interestId}
+                  label="Interest Rate %" 
+                  variant="outlined" 
+                  name="interest" 
+                  type="number"
+                  fullWidth
+                  size='small'
+                  onChange={handleChange}
+                  onSelect={handleChange}
+                  />
               </Grid>
-              <Grid item xs={1} sx={{paddingTop: '9px', paddingLeft:1}} >
-              <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
-            </Grid>
+            
           </> 
-      : 
-      <Grid item xs={1} sx={{paddingTop:'2px'}} >
-          <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
-        </Grid>
-      }
+          : <></>}
+          { category !== 'Income' ? 
+            <Grid item xs={4} sx={{paddingTop:1}}>
+              <TextField id={`${category}_stdate`}
+              helperText="Pay or Due Date" 
+              variant="outlined" 
+              name="startDate" 
+              type="date"
+              fullWidth
+              defaultValue={itemState.startDate}
+              size='small'
+              onChange={handleChange}
+              onSelect={handleChange}
+              />
+            </Grid>
+            :<></>}
+          <Grid item xs={1} sx={{paddingTop:'2px'}} >
+            <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
+          </Grid>
       </Grid>
       <p style={{color: "red"}}>{errorMsg}</p>
     </form>

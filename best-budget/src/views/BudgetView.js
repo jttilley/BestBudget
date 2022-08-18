@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -58,18 +58,18 @@ const GetMonthsLastDay = (month = -1) => {
 // Layout budget categories
 export default function Categories({categories}) {
   
-// if localStorage has budgetItems saved use that
-let localItems = [];
-let local = localStorage.getItem("budgetItems");
-if (local) {
-  localItems = JSON.parse(local);
-} 
+  // if localStorage has budgetItems saved use that
+  let localItems = [];
+  let local = localStorage.getItem("budgetItems");
+  if (local) {
+    localItems = JSON.parse(local);
+  } 
 
-  const [budgetCategories, setBudgetCategories] = React.useState(categories);
-  const [budgetItems, setBudgetItems] = React.useState(localItems);
-    
-  // const [expanded, setExpanded] = React.useState(categories[0].budgetTotal === 0 ? 'panel1' : false);
-  const [expanded, setExpanded] = React.useState(false);
+  const [budgetCategories, setBudgetCategories] = useState(categories);
+  const [budgetItems, setBudgetItems] = useState(localItems);
+
+  // const [expanded, setExpanded] = useState(categories[0].budgetTotal === 0 ? 'panel1' : false);
+  const [expanded, setExpanded] = useState(false);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -78,7 +78,6 @@ if (local) {
   //   OrganizeBudgetItems();
   //   setBudgetCategories(categories);
   // },[]); 
-  
   
   const OrganizeBudgetItems = () => {
     //clear out budget item lists
@@ -101,8 +100,6 @@ if (local) {
     });
   }
 
-
-
   const AddIncome = (description, amt) => {
     let days = GetMonthsLastDay(); 
     
@@ -122,32 +119,25 @@ if (local) {
     }
   }
 
-
-
-
-  const addItem = (description,amount,type,category,categoryId,debtTotal,interest,startDt=null) => {
-    // convert category id into category index
-    const idx = categoryId-1;
-
+  const createItem = (description,amount,type,category,categoryId,debtTotal,interest,startDt) => {
     // default debt dates to today if not needed
     if (!startDt) startDt = new Date(); //start date for debt calculations
+
     let endDt = new Date();  // end date for debt calculations
-
-    let userId = -1; //default userId if not logged in
-    let amt = parseFloat(amount)
-    
-    
-    //Get user id if logged in *******
-
 
     // if Debt calculate end date
     if (category === "Debt") {
       const moCnt = Math.ceil(debtTotal/amount)
       endDt.setMonth(endDt.getMonth() + moCnt)
     }
+    
+    let userId = -1; //default userId if not logged in
+    
+    //Get user id if logged in *******
 
     // create budgetItem object from submission
-    var newItem = {
+    
+    return {
       name: description,
       amount: amount,
       isExpense: type === "Budget" ? false : true, //convert to boolean
@@ -159,7 +149,21 @@ if (local) {
       endDate: endDt.toISOString(), //convert to "2024-06-08T04:51:48.855Z" format
       userId: userId,
     };
+  }
 
+  const makeEdit = (description,amount,type,category,categoryId,debtTotal,interest,startDt=null) => {
+
+
+  }
+
+  const addItem = (description,amount,type,category,categoryId,debtTotal,interest,startDt=null) => {
+    // convert category id into category index
+    const idx = categoryId-1;
+
+    var newItem = createItem(description,amount,type,category,categoryId,debtTotal,interest,startDt);
+    
+    let amt = parseFloat(amount)
+    
     console.log("🚀 ~ file: BudgetView.js ~ line 159 ~ addItem ~ newItem", newItem)
 
     if (category === 'Income') {
@@ -201,6 +205,7 @@ if (local) {
 
   return (
     <div>
+      
       <BudgetContext.Provider value={{
         addItem,
         handleItemChanges,
@@ -217,16 +222,8 @@ if (local) {
 
           <AccordionDetails sx={{backgroundColor: 'aliceblue'}}>
             
-            <AddBudgetItem category={category.name} subCategories={category.subCategories} id={category.id}/>
-            
+            <AddBudgetItem category={category.name} subCategories={category.subCategories} id={category.id} />
             <BudgetItems budgetItems={category.budgets} expenseItems={category.expenses}/>
-
-            {/* <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-              malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
-              sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-              sit amet blandit leo lobortis eget.
-            </Typography> */}
 
           </AccordionDetails>
 

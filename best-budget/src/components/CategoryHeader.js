@@ -16,12 +16,12 @@ const CategoryHeader = ({category, budgetTotal, expenseTotal, estPercent, income
 
   return (
     <>
-      <Grid container sx={{textAlign: 'left'}}>
+      <Grid container sx={{textAlign: 'left', alignItems: 'flex-end'}}>
         <Grid item xs={4}>
           <Typography ><strong>{category}</strong></Typography>
         </Grid>
         <Grid item xs={3}>
-          <Typography><SavingsIcon fontSize="small" sx={{color: 'green', alignItems: 'flex-end'}}/>${budgetTotal.toFixed(2)}</Typography>
+          <Typography><SavingsIcon fontSize="small" sx={{color: 'green'}}/>${budgetTotal.toFixed(2)}</Typography>
         </Grid>
         { category === 'Income' ? <Grid item xs={3}></Grid> :
             <Grid item xs={3}>
