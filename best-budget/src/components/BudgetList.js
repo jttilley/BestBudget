@@ -5,8 +5,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 export default function BudgetList({theList}) {
+  console.log("🚀 ~ file: BudgetList.js ~ line 8 ~ BudgetList ~ theList", theList)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  if (theList === []) return;
+    
+  let listTitle = 'Budgeted:'
+  if (theList[0].isExpense) {
+    listTitle = 'Expenses:';
+  }
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,6 +86,10 @@ export default function BudgetList({theList}) {
 
         return(
         <Grid item key={gridId} sx={{paddingTop: 1, paddingRight: 1, textAlign: 'right'}} xs={12}>
+          { idx === 0 ? 
+            <Typography sx={{textAlign: 'left'}}><strong>{listTitle}</strong></Typography> :
+            <span></span> 
+          }
           <Paper key={paperId}
             aria-controls={open ? 'basic-menu' : undefined}
             aria-haspopup="true"

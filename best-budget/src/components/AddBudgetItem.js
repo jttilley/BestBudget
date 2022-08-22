@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
 // import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import { Grid, Box } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 // import { styled } from '@mui/material/styles';
 // import Paper from '@mui/material/Paper';
@@ -99,6 +99,7 @@ export default function AddBudgetItem({ category, subCategories, id }) {
             name="description" 
             size='small'
             spellCheck="true"
+            autoWidth
             onChange={handleChange}
             onSelect={handleChange}
             />}
@@ -111,6 +112,7 @@ export default function AddBudgetItem({ category, subCategories, id }) {
             name="amount" 
             type="number"
             size='small'
+            autoWidth
             onChange={handleChange}
             onSelect={handleChange}
             />
@@ -130,6 +132,7 @@ export default function AddBudgetItem({ category, subCategories, id }) {
           label="Item Type" 
           name="type" 
           size='small'
+          autoWidth
           onChange={handleChange}
           onSelect={handleChange}
           />}
@@ -137,37 +140,43 @@ export default function AddBudgetItem({ category, subCategories, id }) {
         </Grid>
         :<></>}
         {/* modify layout for Debt */}
+        <Box sx={{paddingTop:1,
+                display: 'inline-grid',
+                gap:0,
+                width:'100%',
+                gridTemplateColumns: 'repeat(3, 1fr)',}}>
         {category === 'Debt' ?
           <>
-            <Grid item xs={4} sx={{paddingTop:1}}>
               <TextField id={dTotalId} 
-                label="Total Debt $" 
+                label="Total Due $" 
                 variant="outlined" 
                 name="debtTotal" 
                 type="number"
-                fullWidth
+                
                 size='small'
+                autoWidth
                 onChange={handleChange}
                 onSelect={handleChange}
                 />
-              </Grid> 
-              <Grid item xs={4} sx={{paddingTop:1}}>
+              {/* </Grid>  */}
+              {/* <Grid item xs={3} sx={{paddingTop:1}}> */}
                 <TextField id={interestId}
-                  label="Interest Rate %" 
+                  label="% Interest" 
                   variant="outlined" 
                   name="interest" 
                   type="number"
-                  fullWidth
+                  
                   size='small'
+                  autoWidth
                   onChange={handleChange}
                   onSelect={handleChange}
                   />
-              </Grid>
+              
             
           </> 
           : <></>}
           { category !== 'Income' ? 
-            <Grid item xs={4} sx={{paddingTop:1}}>
+            <Grid item xs={12} >
               <TextField id={`${category}_stdate`}
               helperText="Pay or Due Date" 
               variant="outlined" 
@@ -179,8 +188,10 @@ export default function AddBudgetItem({ category, subCategories, id }) {
               onChange={handleChange}
               onSelect={handleChange}
               />
+              
             </Grid>
             :<></>}
+            </Box>
           <Grid item xs={1} sx={{paddingTop:'2px'}} >
             <Button variant="contained" color="success" sx={{ display:"flex"}} onClick={handleAddItem}>Add</Button>
           </Grid>
