@@ -13,71 +13,30 @@ import BudgetContext from '../utils/BudgetContext';
 //   paddingLeft: theme.spacing(5),
 // }));
 
-/***************************
- * things to do:
- *  create category state in budgetView so it can be updated by this and panel selection
- *  get category from state context
- * - local function calls budgetView function to change category
- * - when category panel is opened it updates the category state
- * 
- * should look like:
- *  category | type (*)
- *  description | amount | frequency
- *  total Due(**) | interest(**) | start date
- * 
- * *no type or interest or total due needed for Income
- *  label start date with 'Starting pay date'
- * 
- * **Only if category 'Debt' or 'Mortgage/Rent':
- *  show totla Due and interest other wise hide
- *  label start date with 'Starting Due Date'
- *  if Expense:
- *    don't show total due or interest
- *  for mortgages:
- *    figure out how to calculate mortgage decreases from total
- *    see if other pieces are needed or not
- *    
- * All other Categories:
- *  label start date with Due Date
- *  category | type
- *  description | amount | frequency
- *  due date (not required)
- ***************************/
-
-
-
-export default function AddBudgetItem(props) {
-  const { addItem, budgetCategories } = useContext(BudgetContext);
-  console.log('🚀 ~ file: AddBudgetItem.js ~ line 18 ~ AddBudgetItem ~ budgetCategories', budgetCategories)
+export default function AddBudgetItemOld({ category, subCategories, id }) {
+  const { addItem } = useContext(BudgetContext);
   const [errorMsg, setErrorMsg] = useState('');
-  let [newItemCategory, setNewItemCategory] = useState('Income');
+
+  const itemId = `${category}_itemDesc`;
+  const amountId = `${category}_amount`;
+  const typeId = `${category}_type`;
+  const interestId = `${category}_interest`;
+  const dTotalId = `${category}_dtotal`;
 
   const [itemState, setItemState] = useState({ 
-    category: 'Income',
     description: '',
-    amount: '0.00',
-    startDate: null,
-    frequency: 'Monthly',
-    totalDebt: '0.00',
-    interestRate: '0',
+    amount: '', 
     type: 'Budget', 
+    debtTotal: '', 
+    interest: '', 
+    startDate: null, 
   });
 
   let descLabel = 'Item Description'
   let amountLabel = 'Pay $'
 
-  // create some dictionaries for sub categories and ids
-  const subCategories = {};
-  const ids = {};
-
-  for (let i = 0; budgetCategories.length - 1; i++) {
-    let cur = budgetCategories[i]
-    subCategories[cur.name] = cur.subCategories;
-    ids[cur.name] = cur.id
-  }
-
   //change description label for income
-  if (itemState.category === 'Income') {
+  if (category === 'Income') {
     descLabel = 'Income Type'
     amountLabel = 'Paid $'
   }
@@ -87,21 +46,20 @@ export default function AddBudgetItem(props) {
   //for local changes to inputs
   const handleChange = (e) => {
     const {name, value} = e.target;
+    // console.log('e.target',e.target)
+    // if (value === undefined) value = e.target.value;
 
-    if (name === 'category') {
-      
-    }
     setItemState({
       ...itemState,
       [name]: value,
     });
-    
     console.log('itemstate',itemState);
+    console.log('category',category);
   }
 
   const handleAddItem = (e) => {
     
-    const {description, amount, type, debtTotal, interest} = itemState;
+    const {description, amount, type, debtTotal, interest, startDate} = itemState;
 
     let missingInput = '';
 
@@ -109,7 +67,7 @@ export default function AddBudgetItem(props) {
     if (amount === '') missingInput += 'Pay, ';
     if (type !== 'Budget' && type !== 'Expense') missingInput += 'Item Type must be Budget or Expense'
 
-    if (itemState.category === 'Debt') {
+    if (category === 'Debt') {
       if (debtTotal === '') missingInput += 'Debt Total, ';
       if (interest === '') missingInput += 'Interest Rate, ';
     }
@@ -122,37 +80,19 @@ export default function AddBudgetItem(props) {
       setErrorMsg('');
     }
 
-    addItem(description,amount,type,itemState.category,debtTotal,interest);
+    addItem(description,amount,type,category,id,debtTotal,interest,startDate);
     
   }
   
   return (
     <form>
       <Grid container sx={{ padding: 0 }}>
-      <Box>
-          <Autocomplete
-            disablePortal
-            freeSolo
-            id='description'
-            options={budgetCategories.map((option) => option.name)}
-            renderInput={(params) => <TextField {...params} 
-            variant='outlined' 
-            label={descLabel}
-            name='description' 
-            size='small'
-            spellCheck='true'
-            autoWidth
-            onChange={handleChange}
-            onSelect={handleChange}
-            />}
-            />
-        </Box>
         <Grid item xs={5}>
           <Autocomplete
             disablePortal
             freeSolo
-            id='description'
-            options={subCategories[itemState.category].map((option) => option)}
+            id={itemId}
+            options={subCategories.map((option) => option)}
             renderInput={(params) => <TextField {...params} 
             variant='outlined' 
             label={descLabel}
@@ -166,7 +106,7 @@ export default function AddBudgetItem(props) {
             />
         </Grid>
         <Grid item xs={3}>
-          <TextField id='amount' 
+          <TextField id={amountId} 
             label={amountLabel}
             variant='outlined' 
             name='amount' 
@@ -178,10 +118,10 @@ export default function AddBudgetItem(props) {
             />
         </Grid>
         {/* don't need this for income */}
-        { itemState.category !== 'Income' ? 
+        { category !== 'Income' ? 
         <Grid item xs={4}>
           <Autocomplete
-          id='type'
+          id={typeId}
           disableClearable
           disablePortal
           options={['Budget','Expense']}
@@ -205,9 +145,9 @@ export default function AddBudgetItem(props) {
                 gap:0,
                 width:'100%',
                 gridTemplateColumns: 'repeat(3, 1fr)',}}>
-        {itemState.category === 'Debt' ?
+        {category === 'Debt' ?
           <>
-              <TextField id='total' 
+              <TextField id={dTotalId} 
                 label='Total Due $' 
                 variant='outlined' 
                 name='debtTotal' 
@@ -220,7 +160,7 @@ export default function AddBudgetItem(props) {
                 />
               {/* </Grid>  */}
               {/* <Grid item xs={3} sx={{paddingTop:1}}> */}
-                <TextField id='interest'
+                <TextField id={interestId}
                   label='% Interest' 
                   variant='outlined' 
                   name='interest' 
@@ -235,10 +175,10 @@ export default function AddBudgetItem(props) {
             
           </> 
           : <></>}
-          { itemState.category !== 'Income' ? 
+          { category !== 'Income' ? 
             <Grid item xs={12} >
-              <TextField id='startDate'
-              helperText='Pay or Due Date' 
+              <TextField id={`${category}_stdate`}
+              helperText='Starting Payment Date' 
               variant='outlined' 
               name='startDate' 
               type='date'

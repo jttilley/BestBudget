@@ -5,8 +5,8 @@ import BudgetList from './BudgetList';
 
 // list budget items
 export default function BudgetItems( { budgetItems, expenseItems }) {
-console.log("🚀 ~ file: BudgetItems.js ~ line 8 ~ BudgetItems ~ expenseItems", expenseItems)
-console.log("🚀 ~ file: BudgetItems.js ~ line 8 ~ BudgetItems ~ budgetItems", budgetItems)
+// console.log('🚀 ~ file: BudgetItems.js ~ line 8 ~ BudgetItems ~ expenseItems', expenseItems)
+// console.log('🚀 ~ file: BudgetItems.js ~ line 8 ~ BudgetItems ~ budgetItems', budgetItems)
   
   return (
     <Grid container sx={{ padding: 0 }}>

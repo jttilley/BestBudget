@@ -1,21 +1,21 @@
 const personalCategories = [
   {
     id: 1,
-    name: "Income",
+    name: 'Income',
     startPercent: 100,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
     subCategories: [
-      "Weekly", 
-      "Bi-Weekly", 
-      "Monthly", 
-      "One Time"
+      'Weekly', 
+      'Bi-Weekly', 
+      'Monthly', 
+      'One Time'
     ]
   },{
     id: 2,
-    name: "Mortgage/Rent",
+    name: 'Mortgage/Rent',
     minPercent: 25,
     maxPercent: 35,
     startPercent: 25,
@@ -24,16 +24,16 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "1st Mortgage",
-      "2nd Mortgage",
-      "Rent",
-      "Repairs/Maint.",
-      "Real Estate Taxes",
-      "Association Dues"
+      '1st Mortgage',
+      '2nd Mortgage',
+      'Rent',
+      'Repairs/Maint.',
+      'Real Estate Taxes',
+      'Association Dues'
     ]
   },{
     id: 3,
-    name: "Utilities",
+    name: 'Utilities',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -42,24 +42,24 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Electricity",
-      "Gas",
-      "Water",
-      "Trash",
-      "Phone(s)",
-      "Internet",
-      "TV Package",
-      "Sling",
-      "Netflix",
-      "Amazon Prime",
-      "Hulu",
-      "Disney+",
-      "Peacock",
-      "Discovery+",
+      'Electricity',
+      'Gas',
+      'Water',
+      'Trash',
+      'Phone(s)',
+      'Internet',
+      'TV Package',
+      'Sling',
+      'Netflix',
+      'Amazon Prime',
+      'Hulu',
+      'Disney+',
+      'Peacock',
+      'Discovery+',
     ]
   },{
     id: 4,
-    name: "Insurance",
+    name: 'Insurance',
     minPercent: 10,
     maxPercent: 25,
     startPercent: 10,
@@ -68,16 +68,16 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Life",
-      "Health",
-      "Car",
-      "Home Owners/Renters",
-      "Disability",
-      "Long-Term Care"
+      'Life',
+      'Health',
+      'Car',
+      'Home Owners/Renters',
+      'Disability',
+      'Long-Term Care'
     ]
   },{
     id: 5,
-    name: "Giving",
+    name: 'Giving',
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
@@ -86,12 +86,12 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Tithes",
-      "Charity"
+      'Tithes',
+      'Charity'
     ]
   },{
     id: 6,
-    name: "Transportation",
+    name: 'Transportation',
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
@@ -100,14 +100,14 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Gas & Oil",
-      "Repairs & Tires",
-      "License & Taxes",
-      "Bus/Train/Tram Passes"
+      'Gas & Oil',
+      'Repairs & Tires',
+      'License & Taxes',
+      'Bus/Train/Tram Passes'
     ]
   },{
     id: 7,
-    name: "Debt",
+    name: 'Debt',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -116,19 +116,19 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Credit Card",
-      "Car Payment",
-      "Student Loan",
-      "HELOC Loan",
-      "Personal Loan",
-      "Visa",
-      "Master Card",
-      "Discovery",
-      "American Express"
+      'Credit Card',
+      'Car Payment',
+      'Student Loan',
+      'HELOC Loan',
+      'Personal Loan',
+      'Visa',
+      'Master Card',
+      'Discovery',
+      'American Express'
     ]
   },{
     id: 8,
-    name: "Food",
+    name: 'Food',
     minPercent: 5,
     maxPercent: 15,
     startPercent: 10,
@@ -137,20 +137,20 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Groceries",
-      "Resturants/Takeout",
-      "Kroger",
-      "King Soopers",
-      "Costco",
-      "Sams Club",
-      "Safeway",
-      "Target",
-      "Walmart",
-      "Publics",
+      'Groceries',
+      'Resturants/Takeout',
+      'Kroger',
+      'King Soopers',
+      'Costco',
+      'Sams Club',
+      'Safeway',
+      'Target',
+      'Walmart',
+      'Publics',
     ]
   },{
     id: 9,
-    name: "Medical/Health",
+    name: 'Medical/Health',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -159,15 +159,15 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Vitamins",
-      "Medications",
-      "Doctors Bills",
-      "Dentist",
-      "Optometrist"
+      'Vitamins',
+      'Medications',
+      'Doctors Bills',
+      'Dentist',
+      'Optometrist'
     ]
   },{
     id: 10,
-    name: "Personal",
+    name: 'Personal',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -176,24 +176,24 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Pocket Money",
-      "Toiletries",
-      "Subscriptions",
-      "Organization Dues",
-      "Cosmetics/Hair Care",
-      "Education/Tuition",
-      "Books/Supplies",
-      "Baby Supplies",
-      "Child Care/Sitter",
-      "Child Support",
-      "Alimony",
-      "Pet Supplies",
-      "Music/Technology",
-      "Miscellaneous"
+      'Pocket Money',
+      'Toiletries',
+      'Subscriptions',
+      'Organization Dues',
+      'Cosmetics/Hair Care',
+      'Education/Tuition',
+      'Books/Supplies',
+      'Baby Supplies',
+      'Child Care/Sitter',
+      'Child Support',
+      'Alimony',
+      'Pet Supplies',
+      'Music/Technology',
+      'Miscellaneous'
     ]
   },{
     id: 11,
-    name: "Recreation",
+    name: 'Recreation',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -202,14 +202,14 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Gym Membership",
-      "Entertainment",
-      "Trainer",
-      "Sport Dues"
+      'Gym Membership',
+      'Entertainment',
+      'Trainer',
+      'Sport Dues'
     ]
   },{
     id: 12,
-    name: "Savings",
+    name: 'Savings',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -218,15 +218,15 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Emergency Fund",
-      "Christmas",
-      "Birthdays",
-      "Vacation",
-      "Retirement"
+      'Emergency Fund',
+      'Christmas',
+      'Birthdays',
+      'Vacation',
+      'Retirement'
     ]
   },{
     id: 13,
-    name: "Clothing",
+    name: 'Clothing',
     minPercent: 2,
     maxPercent: 7,
     startPercent: 5,
@@ -235,9 +235,9 @@ const personalCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Adults", 
-      "Children", 
-      "Cleaning/Laundry"
+      'Adults', 
+      'Children', 
+      'Cleaning/Laundry'
     ]
   }
 ];
@@ -245,16 +245,16 @@ const personalCategories = [
 const businessCategories = [
   {
     id: 1,
-    name: "Income",
+    name: 'Income',
     startPercent: 100,
     budgetTotal: 0.0,
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
-    subCategories: ["Daily", "Weekly", "Bi-Weekly", "Monthly", "One Time"]
+    subCategories: ['Daily', 'Weekly', 'Bi-Weekly', 'Monthly', 'One Time']
   },{
     id: 2,
-    name: "Employees",
+    name: 'Employees',
     minPercent: 5,
     maxPercent: 50,
     startPercent: 25,
@@ -262,10 +262,10 @@ const businessCategories = [
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
-    subCategories: ["Reception","Sales","Labor","Software","Engineering","Managment","Tech","Assistance","Remote","Human Resources"]
+    subCategories: ['Reception','Sales','Labor','Software','Engineering','Managment','Tech','Assistance','Remote','Human Resources']
   },{
     id: 3,
-    name: "Property",
+    name: 'Property',
     minPercent: 5,
     maxPercent: 25,
     startPercent: 10,
@@ -273,10 +273,10 @@ const businessCategories = [
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
-    subCategories: ["Mortgage","Rent","Insurance","Taxes","Equipment"]
+    subCategories: ['Mortgage','Rent','Insurance','Taxes','Equipment']
   },{
     id: 4,
-    name: "Utilities",
+    name: 'Utilities',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -285,17 +285,17 @@ const businessCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Electricity",
-      "Gas",
-      "Water",
-      "Trash",
-      "Phone(s)",
-      "Internet",
-      "TV Package"
+      'Electricity',
+      'Gas',
+      'Water',
+      'Trash',
+      'Phone(s)',
+      'Internet',
+      'TV Package'
     ]
   },{
     id: 5,
-    name: "Giving",
+    name: 'Giving',
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
@@ -304,11 +304,11 @@ const businessCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Charity"
+      'Charity'
     ]
   },{
     id: 6,
-    name: "Transportation",
+    name: 'Transportation',
     minPercent: 10,
     maxPercent: 15,
     startPercent: 10,
@@ -317,14 +317,14 @@ const businessCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Gas & Oil",
-      "Repairs & Tires",
-      "License & Taxes",
-      "Bus/Train/Tram Passes"
+      'Gas & Oil',
+      'Repairs & Tires',
+      'License & Taxes',
+      'Bus/Train/Tram Passes'
     ]
   },{
     id: 7,
-    name: "Debt",
+    name: 'Debt',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -333,14 +333,14 @@ const businessCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Credit Card",
-      "Vehical Payment",
-      "Buisness Loan",
-      "Equipment"
+      'Credit Card',
+      'Vehical Payment',
+      'Buisness Loan',
+      'Equipment'
     ]
   },{
     id: 8,
-    name: "Food",
+    name: 'Food',
     minPercent: 5,
     maxPercent: 15,
     startPercent: 10,
@@ -349,12 +349,12 @@ const businessCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Groceries",
-      "Resturants/Takeout"
+      'Groceries',
+      'Resturants/Takeout'
     ]
   },{
     id: 9,
-    name: "Advertising",
+    name: 'Advertising',
     minPercent: 5,
     maxPercent: 25,
     startPercent: 10,
@@ -362,10 +362,10 @@ const businessCategories = [
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
-    subCategories: ["Publications","Signs"]
+    subCategories: ['Publications','Signs']
   },{
     id: 10,
-    name: "Petty cash",
+    name: 'Petty cash',
     minPercent: 2,
     maxPercent: 10,
     startPercent: 5,
@@ -373,10 +373,10 @@ const businessCategories = [
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
-    subCategories: ["Event","Wine & Dine","Conference","Client"]
+    subCategories: ['Event','Wine & Dine','Conference','Client']
   },{
     id: 11,
-    name: "Insurance",
+    name: 'Insurance',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -384,10 +384,10 @@ const businessCategories = [
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
-    subCategories: ["Vehical","Workers Comp","Renters","Mortgage","Health","Dental","Vision"]
+    subCategories: ['Vehical','Workers Comp','Renters','Mortgage','Health','Dental','Vision']
   },{
     id: 12,
-    name: "Services",
+    name: 'Services',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -395,11 +395,11 @@ const businessCategories = [
     expensesTotal: 0.0,
     budgets:[],
     expenses: [],
-    subCategories: [ "Plumbing","Heating","Protection","Monitoring","Phone","Repairs"]
+    subCategories: [ 'Plumbing','Heating','Protection','Monitoring','Phone','Repairs']
   },
   {
     id: 13,
-    name: "Savings",
+    name: 'Savings',
     minPercent: 5,
     maxPercent: 10,
     startPercent: 5,
@@ -408,17 +408,17 @@ const businessCategories = [
     budgets:[],
     expenses: [],
     subCategories: [
-      "Emergency Fund",
-      "Christmas",
-      "Birthdays",
-      "Equipment",
-      "Vehicals",
-      "Services",
-      "Office Space"
+      'Emergency Fund',
+      'Christmas',
+      'Birthdays',
+      'Equipment',
+      'Vehicals',
+      'Services',
+      'Office Space'
     ]
   },{
     id: 14,
-    name: "Miscellaneous",
+    name: 'Miscellaneous',
     minPercent: 5,
     maxPercent: 30,
     startPercent: 15,

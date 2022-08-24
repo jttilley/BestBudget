@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
+import AddBudgetItemOld from '../components/AddBudgetItemOld';
 import AddBudgetItem from '../components/AddBudgetItem';
 import BudgetContext from '../utils/BudgetContext'; 
-import CategoryHeader from '../components/CategoryHeader';
+// import CategoryHeaderOld from '../components/CategoryHeader old';
 import BudgetItems from '../components/BudgetItems';
-import CategoryHeader2 from '../components/catHead2';
+import CategoryHeader from '../components/CategoryHeader';
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -55,6 +55,7 @@ const GetMonthsLastDay = (month = -1) => {
   return dt.getDate(); 
 }
 
+
 // Layout budget categories
 export default function Categories({categories}) {
   
@@ -71,7 +72,15 @@ export default function Categories({categories}) {
   // const [expanded, setExpanded] = useState(categories[0].budgetTotal === 0 ? 'panel1' : false);
   const [expanded, setExpanded] = useState(false);
 
+  const changeCategory = (category) => {
+    AddBudgetItem.setNewItemCategegory = category;
+  }
+
   const handleChange = (panel) => (event, newExpanded) => {
+    console.log("🚀 ~ file: BudgetView.js ~ line 75 ~ handleChange ~ event", event)
+    
+    // try to get the active panel and show set the category for add item to that category.
+    changeCategory(event.target.innerText);
     setExpanded(newExpanded ? panel : false);
   }
   // React.useEffect(() => {   
@@ -96,7 +105,7 @@ export default function Categories({categories}) {
       } else {
         categories[idx].budgets.push(item);
       }
-      // console.log("🚀 ~ file: BudgetView.js ~ line 103 ~ OrganizeBudgetItems ~ categories[idx] AFTER", categories[idx])
+
     });
   }
 
@@ -119,9 +128,17 @@ export default function Categories({categories}) {
     }
   }
 
-  const createItem = (description,amount,type,category,categoryId,debtTotal,interest,startDt) => {
+  const createItem = (description,amount,type,category,debtTotal,interest,startDt,frequency) => {
+    console.log("🚀 ~ file: BudgetView.js ~ line 132 ~ createItem ~ startDt", startDt)
     // default debt dates to today if not needed
-    if (!startDt) startDt = new Date(); //start date for debt calculations
+    if (!startDt) {
+      startDt = new Date(); //start date for debt calculations
+    } else {
+      startDt = new Date(startDt);
+      console.log("🚀 ~ file: BudgetView.js ~ line 137 ~ createItem ~ startDt", startDt)
+    }
+
+    
 
     let endDt = new Date();  // end date for debt calculations
 
@@ -132,7 +149,16 @@ export default function Categories({categories}) {
     }
     
     let userId = -1; //default userId if not logged in
-    
+    let categoryId = 0;
+
+    //Find category id
+    for (let i=0; i < budgetCategories.length-1; i++) {
+      if (budgetCategories[i].name === category) {
+        categoryId = budgetCategories[i].id;
+        break;
+      }
+    }
+
     //Get user id if logged in *******
 
     // create budgetItem object from submission
@@ -143,10 +169,11 @@ export default function Categories({categories}) {
       isExpense: type === "Budget" ? false : true, //convert to boolean
       category:category,
       categoryId: categoryId,
-      debtTotal: debtTotal,
+      debtTotal: type === "Budget" ? debtTotal : 0.00, //no debt total for expenses
       interest: interest / 100, //convert to percentage
       startDate: startDt.toISOString(), //convert to "2024-06-08T04:51:48.855Z" format
       endDate: endDt.toISOString(), //convert to "2024-06-08T04:51:48.855Z" format
+      frequency: frequency,
       userId: userId,
     };
   }
@@ -160,7 +187,7 @@ export default function Categories({categories}) {
     // convert category id into category index
     const idx = categoryId-1;
 
-    var newItem = createItem(description,amount,type,category,categoryId,debtTotal,interest,startDt);
+    var newItem = createItem(description,amount,type,category,debtTotal,interest,startDt);
     
     let amt = parseFloat(amount)
     
@@ -192,7 +219,9 @@ export default function Categories({categories}) {
     localStorage.setItem("categories",JSON.stringify(categories));
     
     setBudgetCategories(categories);
+    alert("added categories");
     setBudgetItems(localItems);
+    alert("added budget item");
   };
 
   const handleItemChanges = (e) => {
@@ -211,24 +240,25 @@ export default function Categories({categories}) {
         handleItemChanges,
         handleAmountChanges
       }} >
-      {budgetCategories.map((category, i) => (
-        <Accordion expanded={expanded === 'panel' + category.id} key={category.id} onChange={handleChange('panel' + category.id)}>
-          
-          <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header" sx={{backgroundColor: 'silver'}}>
+        {/* <AddBudgetItem/> */}
+        {budgetCategories.map((category, i) => (
+          <Accordion expanded={expanded === 'panel' + category.id} key={category.id} onChange={handleChange('panel' + category.id)}>
             
-            <CategoryHeader2 category={category.name} budgetTotal={category.budgetTotal} expenseTotal={category.expensesTotal} estPercent={category.startPercent} income={budgetCategories[0].budgetTotal}/>
+            <AccordionSummary aria-controls="panel' + category.id + 'd-content" id="panel' + category.id + 'd-header" sx={{backgroundColor: 'silver'}}>
+              
+              <CategoryHeader category={category.name} budgetTotal={category.budgetTotal} expenseTotal={category.expensesTotal} estPercent={category.startPercent} income={budgetCategories[0].budgetTotal}/>
 
-          </AccordionSummary>
+            </AccordionSummary>
 
-          <AccordionDetails sx={{backgroundColor: 'aliceblue'}}>
-            
-            <AddBudgetItem category={category.name} subCategories={category.subCategories} id={category.id} />
-            <BudgetItems budgetItems={category.budgets} expenseItems={category.expenses}/>
+            <AccordionDetails sx={{backgroundColor: 'aliceblue'}}>
+              
+              <AddBudgetItemOld category={category.name} subCategories={category.subCategories} id={category.id} />
+              <BudgetItems budgetItems={category.budgets} expenseItems={category.expenses}/>
 
-          </AccordionDetails>
+            </AccordionDetails>
 
-        </Accordion>
-      ))}
+          </Accordion>
+        ))}
       </BudgetContext.Provider>
       </div>
   );

@@ -1,14 +1,17 @@
-import React from "react";
+import React from 'react';
 
 const BudgetContext = React.createContext({
-  // functions for updating
-  butonType: "",
-  addItem: () => {},
-  handleItemChanges: () => {},
-  handleAmountChanges: () => {},
+  //variables
+  budgetCategories: [],
+  newItemCategory: '',
   
   // Data for calculation
   incomeTotal: 0,
+  
+  // functions for updating
+  addItem: () => {},
+  handleItemChanges: () => {},
+  handleAmountChanges: () => {},
   
 
 });

@@ -5,7 +5,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 export default function BudgetList({theList}) {
-  console.log("🚀 ~ file: BudgetList.js ~ line 8 ~ BudgetList ~ theList", theList)
+  // console.log('🚀 ~ file: BudgetList.js ~ line 8 ~ BudgetList ~ theList', theList)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   if (theList === []) return;
@@ -35,14 +35,14 @@ export default function BudgetList({theList}) {
 
     let totalLeft = 0.0
     
-    console.log("🚀 ~ file: BudgetList.js ~ line 12 ~ BudgetList ~ item", item)
-      if (item.debtTotal !== "") {
+    // console.log('🚀 ~ file: BudgetList.js ~ line 12 ~ BudgetList ~ item', item)
+      if (item.debtTotal !== '') {
 
         //calculate what's left on the debt
         let today = new Date();
 
-        // trim date off "2024-06-08T04:51:48.855Z" ISO string format
-        let stDt = new Date(item.startDate.slice(0,item.startDate.indexOf("T")));
+        // trim date off '2024-06-08T04:51:48.855Z' ISO string format
+        let stDt = new Date(item.startDate.slice(0,item.startDate.indexOf('T')));
 
         // Figure out how many months have gone by
         let monthDiff = today.getMonth() - stDt.getMonth();
@@ -57,15 +57,15 @@ export default function BudgetList({theList}) {
         for (let i = 1; i <= monthDiff; i++) {
           let intPay = (totalLeft * item.interest)/12;
           totalLeft -= (item.amount - intPay)
-          console.log("🚀 ~ file: BudgetList.js ~ line 32 ~ BudgetList ~ intPay", intPay)
-          console.log("🚀 ~ file: BudgetList.js ~ line 32 ~ BudgetList ~ item.amount", item.amount)
-          console.log("🚀 ~ file: BudgetList.js ~ line 32 ~ BudgetList ~ totalLeft", totalLeft)
+          // console.log('🚀 ~ file: BudgetList.js ~ line 32 ~ BudgetList ~ intPay', intPay)
+          // console.log('🚀 ~ file: BudgetList.js ~ line 32 ~ BudgetList ~ item.amount', item.amount)
+          // console.log('🚀 ~ file: BudgetList.js ~ line 32 ~ BudgetList ~ totalLeft', totalLeft)
           
           // done if paid off
           if (totalLeft <= 0) return 0.0;
         }
         
-        console.log("🚀 ~ file: BudgetList.js ~ line 17 ~ BudgetList ~ totalLeft", totalLeft)
+        // console.log('🚀 ~ file: BudgetList.js ~ line 17 ~ BudgetList ~ totalLeft', totalLeft)
     }
     return totalLeft.toFixed(2);
   }
@@ -73,12 +73,13 @@ export default function BudgetList({theList}) {
   return (
     <Grid container sx={{padding: 0}}>
       { theList.map((itm, idx) => {
-        // console.log("idx", idx);
-        // console.log("itm", itm);
-        let gridId = "grid" + idx;
-        let paperId = "paper"+ idx;
+        // console.log('idx', idx);
+        // console.log('itm', itm);
+        let gridId = 'grid' + idx;
+        let paperId = 'paper'+ idx;
 
         let totalDebt = CalculateDebtLeft(itm);
+        if (itm.isExpense) totalDebt = 0;
         let txt = `${itm.name} - $${itm.amount}`;
         if (totalDebt > 0) {
           txt = `${itm.name} - $${itm.amount} of about $${totalDebt}`
@@ -92,12 +93,12 @@ export default function BudgetList({theList}) {
           }
           <Paper key={paperId}
             aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
+            aria-haspopup='true'
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
           >{txt}</Paper>
           <Menu
-            id="basic-menu"
+            id='basic-menu'
             anchorEl={anchorEl}
             anchorOrigin={{
               vertical: 'bottom',
